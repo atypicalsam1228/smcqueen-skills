@@ -1,0 +1,30 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "smcqueen-skills",
+  "description": "Custom skills for cybersecurity training project generation and document conversion",
+  "owner": {
+    "name": "Samuel McQueen"
+  },
+  "plugins": [
+    {
+      "name": "smcqueen-skills",
+      "source": "./",
+      "description": "Cybersecurity training project generator and docx-to-markdown converter with PowerShell/Python defaults",
+      "version": "1.0.0",
+      "author": {
+        "name": "Samuel McQueen"
+      },
+      "homepage": "https://github.com/atypicalsam1228/smcqueen-skills",
+      "repository": "https://github.com/atypicalsam1228/smcqueen-skills",
+      "license": "MIT",
+      "keywords": [
+        "cybersecurity",
+        "training",
+        "docx-to-markdown",
+        "skills"
+      ],
+      "category": "workflow",
+      "strict": false
+    }
+  ]
+}
