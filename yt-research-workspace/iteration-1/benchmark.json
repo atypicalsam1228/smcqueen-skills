@@ -1,0 +1,174 @@
+{
+  "metadata": {
+    "skill_name": "yt-research",
+    "skill_path": "C:/Users/samue/.claude/skills/yt-research",
+    "executor_model": "claude-opus-4-6",
+    "analyzer_model": "claude-opus-4-6",
+    "timestamp": "2026-04-05T00:00:00Z",
+    "evals_run": [0, 1, 2],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 0,
+      "eval_name": "browse-nist-rmf",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 45.0,
+        "tokens": 0,
+        "tool_calls": 1,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Output contains at least 3 video results", "passed": true, "evidence": "5 results returned"},
+        {"text": "Each result includes title, channel, subscribers, views, duration, upload date, and URL", "passed": true, "evidence": "All 7 metadata fields present"},
+        {"text": "Views/subs ratio is calculated and displayed", "passed": true, "evidence": "Ratio shown for all results"},
+        {"text": "Large numbers formatted as K/M/B", "passed": true, "evidence": "4.7K shown instead of 4730"},
+        {"text": "Visual separators between each result", "passed": true, "evidence": "Dashed line dividers present"}
+      ]
+    },
+    {
+      "eval_id": 0,
+      "eval_name": "browse-nist-rmf",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.0,
+        "passed": 0,
+        "failed": 5,
+        "total": 5,
+        "time_seconds": 34.6,
+        "tokens": 11959,
+        "tool_calls": 7,
+        "errors": 3
+      },
+      "expectations": [
+        {"text": "Output contains at least 3 video results", "passed": false, "evidence": "No results — tools denied"},
+        {"text": "Each result includes title, channel, subscribers, views, duration, upload date, and URL", "passed": false, "evidence": "No results"},
+        {"text": "Views/subs ratio is calculated and displayed", "passed": false, "evidence": "No results"},
+        {"text": "Large numbers formatted as K/M/B", "passed": false, "evidence": "No results"},
+        {"text": "Visual separators between each result", "passed": false, "evidence": "No results"}
+      ]
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "auto-analyze-ai-cybersecurity",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 180.0,
+        "tokens": 0,
+        "tool_calls": 3,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "At least 3 video transcripts were extracted", "passed": true, "evidence": "5 transcripts extracted (113K chars total)"},
+        {"text": "Cross-video research summary provided", "passed": true, "evidence": "Full synthesis with themes, disagreements, quality assessment"},
+        {"text": "Analysis references specific videos by title/channel", "passed": true, "evidence": "Every claim attributed to specific channel"},
+        {"text": "Key themes or consensus points identified", "passed": true, "evidence": "5 numbered themes across videos"},
+        {"text": "Search results with metadata shown", "passed": true, "evidence": "Engagement highlights table included"}
+      ]
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "auto-analyze-ai-cybersecurity",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.0,
+        "passed": 0,
+        "failed": 5,
+        "total": 5,
+        "time_seconds": 78.6,
+        "tokens": 13706,
+        "tool_calls": 9,
+        "errors": 3
+      },
+      "expectations": [
+        {"text": "At least 3 video transcripts were extracted", "passed": false, "evidence": "No transcripts — tools denied"},
+        {"text": "Cross-video research summary provided", "passed": false, "evidence": "Model-knowledge guesses only"},
+        {"text": "Analysis references specific videos by title/channel", "passed": false, "evidence": "No actual videos found"},
+        {"text": "Key themes or consensus points identified", "passed": false, "evidence": "Themes were speculative"},
+        {"text": "Search results with metadata shown", "passed": false, "evidence": "No search results"}
+      ]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "browse-fedramp-12months",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 50.0,
+        "tokens": 0,
+        "tool_calls": 1,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "--months 12 flag was used, not default 6", "passed": true, "evidence": "Results include videos from Apr 2025 (11+ months ago)"},
+        {"text": "Output contains at least 3 video results", "passed": true, "evidence": "7 results returned"},
+        {"text": "Each result includes all metadata fields", "passed": true, "evidence": "All 7 fields present for each result"},
+        {"text": "Large numbers formatted as K/M/B", "passed": true, "evidence": "4.7K and 1.2K shown"},
+        {"text": "Visual separators between each result", "passed": true, "evidence": "Dashed line dividers present"}
+      ]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "browse-fedramp-12months",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.0,
+        "passed": 0,
+        "failed": 5,
+        "total": 5,
+        "time_seconds": 78.6,
+        "tokens": 13571,
+        "tool_calls": 10,
+        "errors": 3
+      },
+      "expectations": [
+        {"text": "--months 12 flag was used, not default 6", "passed": false, "evidence": "No search executed"},
+        {"text": "Output contains at least 3 video results", "passed": false, "evidence": "No results — tools denied"},
+        {"text": "Each result includes all metadata fields", "passed": false, "evidence": "No results"},
+        {"text": "Large numbers formatted as K/M/B", "passed": false, "evidence": "No results"},
+        {"text": "Visual separators between each result", "passed": false, "evidence": "No results"}
+      ]
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {"mean": 1.0, "stddev": 0.0, "min": 1.0, "max": 1.0},
+      "time_seconds": {"mean": 91.7, "stddev": 74.3, "min": 45.0, "max": 180.0},
+      "tokens": {"mean": 0, "stddev": 0, "min": 0, "max": 0}
+    },
+    "without_skill": {
+      "pass_rate": {"mean": 0.0, "stddev": 0.0, "min": 0.0, "max": 0.0},
+      "time_seconds": {"mean": 63.9, "stddev": 25.4, "min": 34.6, "max": 78.6},
+      "tokens": {"mean": 13079, "stddev": 1131, "min": 11959, "max": 13706}
+    },
+    "delta": {
+      "pass_rate": "+1.00",
+      "time_seconds": "+27.8",
+      "tokens": "-13079"
+    }
+  },
+  "notes": [
+    "Without-skill baseline failed entirely due to sandbox restrictions on subagents (0% pass rate)",
+    "With-skill achieved 100% pass rate on all 15 assertions across 3 evals",
+    "Auto-analyze mode took ~3x longer than browse mode due to transcript extraction",
+    "Baseline comparison limited by subagent sandbox — skill value is in structured workflow + formatting, not just tool access"
+  ]
+}

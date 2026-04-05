@@ -1,0 +1,152 @@
+Searching YouTube for "FedRAMP cloud authorization" (last 12 months)...
+
+======================================================================
+  YouTube Search: "FedRAMP cloud authorization"
+  7 results found
+======================================================================
+
+  [ 1] FedRamp 20X Explained: What CSPs Must Know in 2025 with Travis Howerton
+       Channel:      Global Risk Community
+       Subscribers:  1.2K
+       Views:        471
+       Duration:     23:34
+       Uploaded:     Jun 12, 2025
+       Views/Subs:   0.39x
+       URL:          https://www.youtube.com/watch?v=v20OGjA_gpc
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 2] FedRAMP 20x Explained: ATO vs Authorization & What’s Working So Far
+       Channel:      Paramify
+       Subscribers:  379
+       Views:        219
+       Duration:     3:55
+       Uploaded:     Jul 25, 2025
+       Views/Subs:   0.58x
+       URL:          https://www.youtube.com/watch?v=ZyitJiCs2Cw
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 3] What Is FedRAMP And Why Does It Matter?
+       Channel:      Cloud Stack Studio
+       Subscribers:  111
+       Views:        6
+       Duration:     3:19
+       Uploaded:     Nov 20, 2025
+       Views/Subs:   0.05x
+       URL:          https://www.youtube.com/watch?v=uXM4TlvzM74
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 4] 6 New FedRAMP RFCs Explained: What CSPs Need to Know in 2026
+       Channel:      InfusionPoints
+       Subscribers:  170
+       Views:        450
+       Duration:     1:13:00
+       Uploaded:     Feb 06, 2026
+       Views/Subs:   2.65x
+       URL:          https://www.youtube.com/watch?v=6ZBkdJ0fKBY
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 5] How FedRAMP’s Modernization Efforts Are Reshaping Federal Cloud Authorization
+       Channel:      Schellman
+       Subscribers:  741
+       Views:        35
+       Duration:     11:52
+       Uploaded:     Jan 28, 2026
+       Views/Subs:   0.05x
+       URL:          https://www.youtube.com/watch?v=kLoVMfW5lSU
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 6] FedRAMP Cloud Authorization Boundary Guidance
+       Channel:      Armada Cyber Defense
+       Subscribers:  61
+       Views:        13
+       Duration:     18:47
+       Uploaded:     Apr 29, 2025
+       Views/Subs:   0.21x
+       URL:          https://www.youtube.com/watch?v=H8x7kZ45NKI
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 7] FedRamp 20X Cloud-native approach to FedRAMP NIST 800-53
+       Channel:      ProfessorBlackOps - CyberSecurity for the people
+       Subscribers:  4.7K
+       Views:        108
+       Duration:     1:26:29
+       Uploaded:     Nov 12, 2025
+       Views/Subs:   0.02x
+       URL:          https://www.youtube.com/watch?v=35LNWcqXvVs
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+<!-- JSON_DATA_START
+[
+  {
+    "index": 1,
+    "title": "FedRamp 20X Explained: What CSPs Must Know in 2025 with Travis Howerton",
+    "channel": "Global Risk Community",
+    "subscribers": 1210,
+    "views": 471,
+    "duration_seconds": 1414,
+    "upload_date": "20250612",
+    "url": "https://www.youtube.com/watch?v=v20OGjA_gpc",
+    "views_to_subs_ratio": 0.39
+  },
+  {
+    "index": 2,
+    "title": "FedRAMP 20x Explained: ATO vs Authorization & What\u2019s Working So Far",
+    "channel": "Paramify",
+    "subscribers": 379,
+    "views": 219,
+    "duration_seconds": 235,
+    "upload_date": "20250725",
+    "url": "https://www.youtube.com/watch?v=ZyitJiCs2Cw",
+    "views_to_subs_ratio": 0.58
+  },
+  {
+    "index": 3,
+    "title": "What Is FedRAMP And Why Does It Matter?",
+    "channel": "Cloud Stack Studio",
+    "subscribers": 111,
+    "views": 6,
+    "duration_seconds": 199,
+    "upload_date": "20251120",
+    "url": "https://www.youtube.com/watch?v=uXM4TlvzM74",
+    "views_to_subs_ratio": 0.05
+  },
+  {
+    "index": 4,
+    "title": "6 New FedRAMP RFCs Explained: What CSPs Need to Know in 2026",
+    "channel": "InfusionPoints",
+    "subscribers": 170,
+    "views": 450,
+    "duration_seconds": 4380,
+    "upload_date": "20260206",
+    "url": "https://www.youtube.com/watch?v=6ZBkdJ0fKBY",
+    "views_to_subs_ratio": 2.65
+  },
+  {
+    "index": 5,
+    "title": "How FedRAMP\u2019s Modernization Efforts Are Reshaping Federal Cloud Authorization",
+    "channel": "Schellman",
+    "subscribers": 741,
+    "views": 35,
+    "duration_seconds": 712,
+    "upload_date": "20260128",
+    "url": "https://www.youtube.com/watch?v=kLoVMfW5lSU",
+    "views_to_subs_ratio": 0.05
+  },
+  {
+    "index": 6,
+    "title": "FedRAMP Cloud Authorization Boundary Guidance",
+    "channel": "Armada Cyber Defense",
+    "subscribers": 61,
+    "views": 13,
+    "duration_seconds": 1127,
+    "upload_date": "20250429",
+    "url": "https://www.youtube.com/watch?v=H8x7kZ45NKI",
+    "views_to_subs_ratio": 0.21
+  },
+  {
+    "index": 7,
+    "title": "FedRamp 20X Cloud-native approach to FedRAMP NIST 800-53",
+    "channel": "ProfessorBlackOps - CyberSecurity for the people",
+    "subscribers": 4730,
+    "views": 108,
+    "duration_seconds": 5189,
+    "upload_date": "20251112",
+    "url": "https://www.youtube.com/watch?v=35LNWcqXvVs",
+    "views_to_subs_ratio": 0.02
+  }
+]
+JSON_DATA_END -->

@@ -1,0 +1,11 @@
+{
+  "eval_id": 2,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "The --months 12 flag was used, not the default 6", "passed": true, "evidence": "Output header says 'last 12 months', results include videos from Apr 2025 (11 months ago) which would be excluded by 6-month default"},
+    {"text": "Output contains at least 3 video results", "passed": true, "evidence": "7 results returned"},
+    {"text": "Each result includes title, channel, subscribers, views, duration, upload date, and URL", "passed": true, "evidence": "All 7 metadata fields present for each of the 7 results"},
+    {"text": "Large numbers formatted as K/M/B not raw digits", "passed": true, "evidence": "4.7K and 1.2K shown for subscriber counts"},
+    {"text": "Visual separators between each result", "passed": true, "evidence": "Dashed line dividers between every result"}
+  ]
+}

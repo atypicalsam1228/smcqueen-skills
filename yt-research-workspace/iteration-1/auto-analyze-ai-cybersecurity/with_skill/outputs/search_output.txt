@@ -1,0 +1,212 @@
+Searching YouTube for "AI in cybersecurity 2026" (last 6 months)...
+
+======================================================================
+  YouTube Search: "AI in cybersecurity 2026"
+  10 results found
+======================================================================
+
+  [ 1] Cybersecurity Trends in 2026: Shadow AI, Quantum & Deepfakes
+       Channel:      IBM Technology
+       Subscribers:  1.6M
+       Views:        230.5K
+       Duration:     20:29
+       Uploaded:     Dec 29, 2025
+       Views/Subs:   0.14x
+       URL:          https://www.youtube.com/watch?v=2jU-mLMV8Vw
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 2] The AI Cybersecurity Roadmap for 2026 (Stop Wasting Time)
+       Channel:      EVA BENN | CYBERSECURITY | AI 
+       Subscribers:  2.1K
+       Views:        410
+       Duration:     14:07
+       Uploaded:     Mar 05, 2026
+       Views/Subs:   0.19x
+       URL:          https://www.youtube.com/watch?v=a6TimFZ2K5o
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 3] Cybersecurity 2026 WARNING: AI Makes Every System Riskier
+       Channel:      David Bombal
+       Subscribers:  3.0M
+       Views:        422.3K
+       Duration:     42:05
+       Uploaded:     Jan 16, 2026
+       Views/Subs:   0.14x
+       URL:          https://www.youtube.com/watch?v=h7HdSHp02IE
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 4] Here's How to Get HIRED Into Cybersecurity in 2026
+       Channel:      With Sandra
+       Subscribers:  N/A
+       Views:        8.2K
+       Duration:     44:15
+       Uploaded:     Mar 15, 2026
+       Views/Subs:   N/A
+       URL:          https://www.youtube.com/watch?v=OL0-SfoVzlw
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 5] The Dangerous Evolution of AI Hacking
+       Channel:      Cybernews
+       Subscribers:  880.0K
+       Views:        507.7K
+       Duration:     27:44
+       Uploaded:     Jan 31, 2026
+       Views/Subs:   0.58x
+       URL:          https://www.youtube.com/watch?v=-um9zKf1V30
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 6] 2026 DIR-Certified Artificial Intelligence and Cybersecurity Training
+       Channel:      Cyber Squad Video Series
+       Subscribers:  148
+       Views:        2.5K
+       Duration:     35:04
+       Uploaded:     Mar 02, 2026
+       Views/Subs:   16.60x
+       URL:          https://www.youtube.com/watch?v=ZUbF_MBUwh4
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 7] Vibe Hacking: How AI Is Helping Hackers
+       Channel:      David Bombal
+       Subscribers:  3.0M
+       Views:        230.0K
+       Duration:     1:15:31
+       Uploaded:     Mar 29, 2026
+       Views/Subs:   0.08x
+       URL:          https://www.youtube.com/watch?v=u0ynt7CK2og
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 8] Cybersecurity in 2026: The Threats No One Is Ready For
+       Channel:      Humphreys Tech Hub
+       Subscribers:  366
+       Views:        3.5K
+       Duration:     4:53
+       Uploaded:     Dec 23, 2025
+       Views/Subs:   9.51x
+       URL:          https://www.youtube.com/watch?v=VF4B-ju75SA
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 9] The Future of Cybersecurity 2026: How AI Will Shape What's Next
+       Channel:      AgileBlue
+       Subscribers:  261
+       Views:        188
+       Duration:     58:38
+       Uploaded:     Oct 08, 2025
+       Views/Subs:   0.72x
+       URL:          https://www.youtube.com/watch?v=MMprXRJRgD4
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [10] Securing & Advancing AI with Jon Ramsey — Cybersecurity Forecast 2026
+       Channel:      Mandiant & Google Cloud Security
+       Subscribers:  9.4K
+       Views:        447
+       Duration:     3:26
+       Uploaded:     Dec 02, 2025
+       Views/Subs:   0.05x
+       URL:          https://www.youtube.com/watch?v=4O2_XsCXp4Q
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+<!-- JSON_DATA_START
+[
+  {
+    "index": 1,
+    "title": "Cybersecurity Trends in 2026: Shadow AI, Quantum & Deepfakes",
+    "channel": "IBM Technology",
+    "subscribers": 1640000,
+    "views": 230494,
+    "duration_seconds": 1229,
+    "upload_date": "20251229",
+    "url": "https://www.youtube.com/watch?v=2jU-mLMV8Vw",
+    "views_to_subs_ratio": 0.14
+  },
+  {
+    "index": 2,
+    "title": "The AI Cybersecurity Roadmap for 2026 (Stop Wasting Time)",
+    "channel": "EVA BENN | CYBERSECURITY | AI ",
+    "subscribers": 2110,
+    "views": 410,
+    "duration_seconds": 847,
+    "upload_date": "20260305",
+    "url": "https://www.youtube.com/watch?v=a6TimFZ2K5o",
+    "views_to_subs_ratio": 0.19
+  },
+  {
+    "index": 3,
+    "title": "Cybersecurity 2026 WARNING: AI Makes Every System Riskier",
+    "channel": "David Bombal",
+    "subscribers": 3040000,
+    "views": 422293,
+    "duration_seconds": 2525,
+    "upload_date": "20260116",
+    "url": "https://www.youtube.com/watch?v=h7HdSHp02IE",
+    "views_to_subs_ratio": 0.14
+  },
+  {
+    "index": 4,
+    "title": "Here's How to Get HIRED Into Cybersecurity in 2026",
+    "channel": "With Sandra",
+    "subscribers": null,
+    "views": 8205,
+    "duration_seconds": 2655,
+    "upload_date": "20260315",
+    "url": "https://www.youtube.com/watch?v=OL0-SfoVzlw",
+    "views_to_subs_ratio": null
+  },
+  {
+    "index": 5,
+    "title": "The Dangerous Evolution of AI Hacking",
+    "channel": "Cybernews",
+    "subscribers": 880000,
+    "views": 507675,
+    "duration_seconds": 1664,
+    "upload_date": "20260131",
+    "url": "https://www.youtube.com/watch?v=-um9zKf1V30",
+    "views_to_subs_ratio": 0.58
+  },
+  {
+    "index": 6,
+    "title": "2026 DIR-Certified Artificial Intelligence and Cybersecurity Training",
+    "channel": "Cyber Squad Video Series",
+    "subscribers": 148,
+    "views": 2457,
+    "duration_seconds": 2104,
+    "upload_date": "20260302",
+    "url": "https://www.youtube.com/watch?v=ZUbF_MBUwh4",
+    "views_to_subs_ratio": 16.6
+  },
+  {
+    "index": 7,
+    "title": "Vibe Hacking: How AI Is Helping Hackers",
+    "channel": "David Bombal",
+    "subscribers": 3040000,
+    "views": 229961,
+    "duration_seconds": 4531,
+    "upload_date": "20260329",
+    "url": "https://www.youtube.com/watch?v=u0ynt7CK2og",
+    "views_to_subs_ratio": 0.08
+  },
+  {
+    "index": 8,
+    "title": "Cybersecurity in 2026: The Threats No One Is Ready For",
+    "channel": "Humphreys Tech Hub",
+    "subscribers": 366,
+    "views": 3479,
+    "duration_seconds": 293,
+    "upload_date": "20251223",
+    "url": "https://www.youtube.com/watch?v=VF4B-ju75SA",
+    "views_to_subs_ratio": 9.51
+  },
+  {
+    "index": 9,
+    "title": "The Future of Cybersecurity 2026: How AI Will Shape What's Next",
+    "channel": "AgileBlue",
+    "subscribers": 261,
+    "views": 188,
+    "duration_seconds": 3518,
+    "upload_date": "20251008",
+    "url": "https://www.youtube.com/watch?v=MMprXRJRgD4",
+    "views_to_subs_ratio": 0.72
+  },
+  {
+    "index": 10,
+    "title": "Securing & Advancing AI with Jon Ramsey \u2014 Cybersecurity Forecast 2026",
+    "channel": "Mandiant & Google Cloud Security",
+    "subscribers": 9370,
+    "views": 447,
+    "duration_seconds": 206,
+    "upload_date": "20251202",
+    "url": "https://www.youtube.com/watch?v=4O2_XsCXp4Q",
+    "views_to_subs_ratio": 0.05
+  }
+]
+JSON_DATA_END -->

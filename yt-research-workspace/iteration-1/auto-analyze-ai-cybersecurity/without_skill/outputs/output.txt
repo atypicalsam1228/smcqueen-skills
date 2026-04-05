@@ -1,0 +1,145 @@
+================================================================================
+RESEARCH OUTPUT: What YouTube Creators Are Saying About AI in Cybersecurity (2026)
+Generated: 2026-04-04
+Method: Without skill instructions (baseline attempt)
+================================================================================
+
+STATUS: UNABLE TO PERFORM LIVE RESEARCH
+--------------------------------------
+All tools required for live YouTube research were denied during execution:
+- Bash (needed for yt-dlp searches and transcript downloads)
+- WebSearch (needed for discovering recent YouTube videos on the topic)
+- WebFetch (needed for scraping YouTube search results and video pages)
+
+Without access to any of these tools, it was impossible to:
+1. Search YouTube for recent videos about AI in cybersecurity
+2. Download or read video transcripts
+3. Identify specific creators, video titles, view counts, or upload dates
+4. Analyze actual 2026 content from the platform
+
+What follows is a best-effort summary based on the model's training knowledge
+(cutoff: May 2025) about the YouTube cybersecurity creator landscape and the
+trajectory of AI-in-cybersecurity discussions. This is NOT based on live 2026
+YouTube data and should be treated as background context only.
+
+================================================================================
+KNOWN YOUTUBE CYBERSECURITY CREATORS (as of training cutoff, May 2025)
+================================================================================
+
+The following creators have historically covered AI and cybersecurity topics:
+
+1. David Bombal
+   - Channel focus: Networking, ethical hacking, cybersecurity career advice
+   - AI coverage: Interviews with experts on AI-driven pentesting tools,
+     AI-assisted threat detection, impact of AI on cybersecurity jobs
+
+2. NetworkChuck
+   - Channel focus: Beginner-friendly cybersecurity, networking, IT career
+   - AI coverage: Tutorials on using AI tools for security tasks, ChatGPT
+     for hacking/defense scenarios, AI homelab projects
+
+3. John Hammond
+   - Channel focus: CTFs, malware analysis, ethical hacking
+   - AI coverage: Using LLMs for reverse engineering, AI-generated malware
+     analysis, CTF challenges involving AI
+
+4. The Cyber Mentor (Heath Adams / TCM Security)
+   - Channel focus: Ethical hacking courses, penetration testing
+   - AI coverage: AI tools in penetration testing workflows, impact on
+     the pentesting profession
+
+5. Professor Messer
+   - Channel focus: CompTIA certification training
+   - AI coverage: AI topics appearing in updated certification exams
+     (Security+, CySA+, etc.)
+
+6. LiveOverflow
+   - Channel focus: Deep technical security research, CTFs
+   - AI coverage: Technical analysis of AI model vulnerabilities, prompt
+     injection, adversarial ML
+
+7. SANS Institute (official channel)
+   - Channel focus: Professional cybersecurity training, threat intelligence
+   - AI coverage: Conference talks on AI-driven SOC operations, threat
+     hunting with ML, defending against AI-powered attacks
+
+8. Black Hills Information Security
+   - Channel focus: Penetration testing, defensive security, webcasts
+   - AI coverage: Practical AI integration in red/blue team operations
+
+9. Gerald Auger (Simply Cyber)
+   - Channel focus: Cybersecurity career advice, GRC, daily news
+   - AI coverage: AI's impact on cybersecurity hiring, GRC automation,
+     daily coverage of AI-related security news
+
+10. IBM Technology
+    - Channel focus: Enterprise tech explainers
+    - AI coverage: AI-powered SIEM/SOAR, zero trust with AI, enterprise
+      security automation
+
+================================================================================
+EXPECTED KEY THEMES IN 2026 (projected from late-2025 trajectory)
+================================================================================
+
+Based on trends that were already well-established by the model's knowledge
+cutoff, the following themes are very likely being discussed in 2026:
+
+A. AI-POWERED OFFENSIVE TOOLS
+   - Autonomous vulnerability discovery and exploitation
+   - AI-generated phishing and social engineering at scale
+   - LLM-assisted malware development and polymorphic code
+   - Deepfake-driven identity attacks (voice, video)
+
+B. AI-POWERED DEFENSIVE TOOLS
+   - AI-driven SOC triage and alert prioritization
+   - Automated incident response playbooks
+   - Behavioral analytics and anomaly detection using ML
+   - AI copilots for security analysts (Microsoft Security Copilot, etc.)
+
+C. AI GOVERNANCE AND REGULATION
+   - EU AI Act enforcement implications for security teams
+   - NIST AI RMF adoption in cybersecurity contexts
+   - AI supply chain security (model provenance, poisoning)
+   - Responsible AI red-teaming practices
+
+D. CAREER IMPACT
+   - Whether AI will replace junior SOC analysts
+   - New roles: AI security engineer, prompt security specialist
+   - Upskilling advice for cybersecurity professionals
+   - AI certifications entering the market
+
+E. AI MODEL SECURITY
+   - Prompt injection attacks and defenses
+   - LLM jailbreaking techniques and mitigations
+   - Data poisoning and model supply chain attacks
+   - OWASP Top 10 for LLM Applications (updated versions)
+
+F. AGENTIC AI SECURITY
+   - Risks from autonomous AI agents with tool access
+   - Securing AI agent workflows and permissions
+   - AI agents in penetration testing (autonomous pentesting)
+
+================================================================================
+LIMITATIONS AND RECOMMENDATIONS
+================================================================================
+
+This output is severely limited because no live data could be retrieved.
+To produce a proper research report, the following tools are needed:
+
+1. yt-dlp (via Bash): To search YouTube, list videos, download transcripts
+   Example: yt-dlp --flat-playlist "ytsearch20:AI cybersecurity 2026" --print title,channel,url
+
+2. WebSearch: To find curated lists, articles referencing notable YouTube
+   videos on AI cybersecurity in 2026
+
+3. WebFetch: To scrape video descriptions, comments, and metadata
+
+RECOMMENDED NEXT STEPS:
+- Re-run this task with Bash permissions enabled so yt-dlp can be used
+- Re-run with WebSearch permissions to discover recent video content
+- Consider using the yt-research skill which likely has optimized workflows
+  for this exact type of task
+
+================================================================================
+END OF OUTPUT
+================================================================================

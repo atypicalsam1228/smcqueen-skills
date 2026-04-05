@@ -1,0 +1,23 @@
+{
+  "skill_name": "web-research",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Search the web for recent articles about zero trust architecture best practices",
+      "expected_output": "Structured list of web search results with title, domain, date, URL, and snippet for each result, with dividers between entries. User should be asked which to analyze further.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "prompt": "Research what experts and publications say about NIST AI RMF implementation challenges and give me a cited report",
+      "expected_output": "Deep research workflow: Firecrawl search, NotebookLM notebook creation, source addition, cited queries, generated briefing report, and results saved to Obsidian vault",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Cross-reference the claims in these articles about FedRAMP 20x changes: https://www.fedramp.gov/2024-09-09-a-new-era-for-fedramp/ and https://www.coalfire.com/the-coalfire-blog/fedramp-20x-what-you-need-to-know",
+      "expected_output": "Verify workflow: Firecrawl scrape of both URLs, NotebookLM notebook with both as sources, targeted verification questions, cited findings showing agreement/disagreement across sources",
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+YouTube Research: FedRAMP Cloud Authorization (Last 12 Months)
+================================================================
+Query: "FedRAMP cloud authorization"
+Date range requested: Last 12 months (approx. April 2025 - April 2026)
+Executed: 2026-04-04
+Method: Without skill (baseline attempt)
+
+STATUS: FAILED - No live results retrieved
+================================================================
+
+REASON FOR FAILURE:
+All tools required to perform live YouTube searches were denied permission
+during this session:
+
+  1. Bash (denied)      - Could not run yt-dlp to search YouTube programmatically
+  2. WebSearch (denied)  - Could not perform web searches scoped to youtube.com
+  3. WebFetch (denied)   - Could not fetch YouTube search result pages directly
+
+Without at least one of these tools, it is impossible to retrieve real-time
+YouTube search results.
+
+WHAT WAS ATTEMPTED:
+  - yt-dlp search via Bash:
+      yt-dlp "ytsearch20:FedRAMP cloud authorization" --dateafter 20250404
+        --print "%(title)s | %(channel)s | %(upload_date)s | %(view_count)s | %(duration_string)s | %(webpage_url)s"
+  - WebSearch queries (youtube.com domain filter):
+      "YouTube FedRAMP cloud authorization 2025 2026"
+      "FedRAMP authorization process cloud security YouTube video 2025"
+      "FedRAMP cloud compliance authorization ATO YouTube 2026"
+  - WebFetch on YouTube search URLs with date filter parameter (sp=EgIIBQ%3D%3D for "this year"):
+      https://www.youtube.com/results?search_query=FedRAMP+cloud+authorization&sp=EgIIBQ%3D%3D
+      https://www.youtube.com/results?search_query=FedRAMP+authorization+process+cloud+security&sp=EgIIBQ%3D%3D
+
+RECOMMENDED APPROACH (if tools were available):
+  The most reliable method would be yt-dlp with multiple search queries:
+
+    Search queries to cover the topic broadly:
+      1. "FedRAMP cloud authorization"
+      2. "FedRAMP authorization process"
+      3. "FedRAMP ATO cloud service provider"
+      4. "FedRAMP Rev 5 cloud compliance"
+      5. "FedRAMP cloud security assessment"
+
+    yt-dlp command pattern:
+      yt-dlp "ytsearch20:<query>" \
+        --dateafter 20250404 \
+        --print "%(title)s | %(channel)s | %(upload_date)s | %(view_count)s | %(duration_string)s | %(webpage_url)s" \
+        --no-download
+
+    Post-processing steps:
+      - Deduplicate results by video ID
+      - Sort by upload date (newest first) or view count
+      - Filter out results older than 12 months
+      - Present structured results with title, channel, date, views, duration, and URL
+
+KNOWN YOUTUBE CHANNELS LIKELY TO HAVE RELEVANT CONTENT:
+  (Based on prior knowledge, not live search results)
+  - FedRAMP PMO (official government channel)
+  - ATARC (Advanced Technology Academic Research Center)
+  - GovExec / Nextgov
+  - AWS Public Sector
+  - Microsoft Federal
+  - Google Cloud Public Sector
+  - Coalfire (3PAO/assessor)
+  - A-LIGN
+  - Schellman (3PAO)
+  - ISACA
+  - (ISC)2 / ISC2
+  - ACT-IAC
+
+RESULTS: None (0 videos retrieved)
+================================================================

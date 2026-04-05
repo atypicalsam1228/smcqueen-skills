@@ -1,0 +1,11 @@
+{
+  "eval_id": 0,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "Output contains at least 3 video results", "passed": true, "evidence": "5 results returned"},
+    {"text": "Each result includes title, channel, subscribers, views, duration, upload date, and URL", "passed": true, "evidence": "All 7 metadata fields present for each of the 5 results"},
+    {"text": "Views/subs ratio is calculated and displayed for each result", "passed": true, "evidence": "Views/Subs ratio shown for all results (0.04x, 0.01x, N/A, 0.55x, 0.07x) — N/A correctly shown when subs unavailable"},
+    {"text": "Large numbers formatted as K/M/B not raw digits", "passed": true, "evidence": "4.7K subscribers shown for ProfessorBlackOps instead of 4730"},
+    {"text": "Visual separators between each result", "passed": true, "evidence": "Dashed line dividers '- - - -' between every result"}
+  ]
+}

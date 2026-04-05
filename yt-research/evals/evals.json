@@ -1,0 +1,23 @@
+{
+  "skill_name": "yt-research",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Search YouTube for videos about NIST RMF compliance automation",
+      "expected_output": "Formatted list of YouTube search results with metadata (title, channel, subs, views, duration, date, URL, engagement ratio) and dividers between results",
+      "files": []
+    },
+    {
+      "id": 1,
+      "prompt": "Research what YouTube creators are saying about AI in cybersecurity in 2026",
+      "expected_output": "Auto-pulled transcripts from top results with a synthesized research summary covering key themes, consensus, disagreements, and notable claims",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Find YouTube videos about FedRAMP cloud authorization --months 12",
+      "expected_output": "Formatted search results filtered to last 12 months with all metadata fields and engagement ratios",
+      "files": []
+    }
+  ]
+}

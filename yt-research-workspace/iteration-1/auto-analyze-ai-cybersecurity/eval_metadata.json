@@ -1,0 +1,12 @@
+{
+  "eval_id": 1,
+  "eval_name": "auto-analyze-ai-cybersecurity",
+  "prompt": "Research what YouTube creators are saying about AI in cybersecurity in 2026",
+  "assertions": [
+    {"id": "transcripts-pulled", "text": "At least 3 video transcripts were extracted"},
+    {"id": "synthesis-provided", "text": "Output includes a cross-video research summary, not just raw transcripts"},
+    {"id": "sources-cited", "text": "Analysis references specific videos by title and/or channel"},
+    {"id": "themes-identified", "text": "Summary identifies key themes or consensus points across videos"},
+    {"id": "metadata-included", "text": "Search results with metadata shown before or alongside analysis"}
+  ]
+}

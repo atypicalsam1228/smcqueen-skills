@@ -1,0 +1,11 @@
+{
+  "eval_id": 1,
+  "config": "with_skill",
+  "expectations": [
+    {"text": "At least 3 video transcripts were extracted", "passed": true, "evidence": "5 transcripts successfully extracted (IBM Technology: 19K chars, David Bombal: 47K chars, Cybernews: 28K chars, EVA BENN: 12K chars, Humphreys Tech Hub: 5K chars)"},
+    {"text": "Output includes a cross-video research summary, not just raw transcripts", "passed": true, "evidence": "Full synthesis with Key Themes & Consensus, Notable Disagreements, Most Substantive Videos, Quality Assessment, and Specific Claims sections"},
+    {"text": "Analysis references specific videos by title and/or channel", "passed": true, "evidence": "Every claim attributed to specific channel (e.g., 'IBM Technology highlights shadow AI', 'David Bombal's guest warns about prompt injection')"},
+    {"text": "Summary identifies key themes or consensus points across videos", "passed": true, "evidence": "5 numbered themes: AI-powered attacks scaling, shadow AI, deepfakes, AI as defensive tool, quantum threats"},
+    {"text": "Search results with metadata shown before or alongside analysis", "passed": true, "evidence": "Search results noted at top, engagement highlights table at bottom with views/subs/ratios"}
+  ]
+}

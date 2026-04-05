@@ -1,0 +1,11 @@
+{
+  "eval_id": 2,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "The --months 12 flag was used, not the default 6", "passed": false, "evidence": "No search executed"},
+    {"text": "Output contains at least 3 video results", "passed": false, "evidence": "No results — all tools denied by sandbox"},
+    {"text": "Each result includes title, channel, subscribers, views, duration, upload date, and URL", "passed": false, "evidence": "No results"},
+    {"text": "Large numbers formatted as K/M/B not raw digits", "passed": false, "evidence": "No results"},
+    {"text": "Visual separators between each result", "passed": false, "evidence": "No results"}
+  ]
+}

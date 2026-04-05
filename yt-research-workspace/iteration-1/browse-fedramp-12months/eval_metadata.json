@@ -1,0 +1,12 @@
+{
+  "eval_id": 2,
+  "eval_name": "browse-fedramp-12months",
+  "prompt": "Find YouTube videos about FedRAMP cloud authorization --months 12",
+  "assertions": [
+    {"id": "months-flag-parsed", "text": "The --months 12 flag was used, not the default 6"},
+    {"id": "results-present", "text": "Output contains at least 3 video results"},
+    {"id": "metadata-complete", "text": "Each result includes title, channel, subscribers, views, duration, upload date, and URL"},
+    {"id": "human-readable-numbers", "text": "Large numbers formatted as K/M/B not raw digits"},
+    {"id": "dividers-between-results", "text": "Visual separators between each result"}
+  ]
+}

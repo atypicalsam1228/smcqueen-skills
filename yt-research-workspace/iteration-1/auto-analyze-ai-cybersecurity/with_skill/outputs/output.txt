@@ -1,0 +1,59 @@
+# YouTube Research: AI in Cybersecurity 2026
+
+## Search Results
+
+10 videos found for "AI in cybersecurity 2026" (last 6 months). Transcripts pulled from top 5.
+
+## Cross-Video Research Summary
+
+### Key Themes & Consensus
+
+**1. AI-Powered Attacks Are Scaling Rapidly**
+Every video agrees: AI has industrialized cyberattacks. Phishing is no longer "broken English scams" — AI generates contextually aware, real-time adaptive phishing that sounds human (Humphreys Tech Hub, IBM Technology). David Bombal's guest warns about prompt injection in medical chatbots that could alter prescriptions or exfiltrate records. Cybernews frames it as AI "not really thinking" but calculating probabilities — meaning it will help attack if the probability path leads there.
+
+**2. Shadow AI Is a Major Emerging Risk**
+IBM Technology highlights shadow AI — unauthorized AI deployments within organizations — as a top cost driver. Their Cost of a Data Breach report shows $670,000 MORE in breach costs for organizations with shadow AI. This is a governance gap, not just a technical one.
+
+**3. Deepfakes & Identity Manipulation**
+Multiple videos flag deepfake-based attacks as among the most dangerous 2026 threats. Humphreys Tech Hub calls identity manipulation "one of the most dangerous threats in 2026." IBM Technology confirms this trend has materialized as predicted.
+
+**4. AI as a Defensive Force Multiplier**
+While threats dominate the discussion, EVA BENN emphasizes AI as a career accelerator: "AI is the co-pilot. You are still the pilot." The message is consistent — fundamentals still matter, but those who combine security knowledge with AI skills are "irreplaceable."
+
+**5. Quantum Threats on the Horizon**
+IBM Technology includes quantum computing as a growing concern alongside AI, though other videos don't focus on it heavily.
+
+### Notable Disagreements
+
+- **Tone**: IBM Technology and EVA BENN are more optimistic/practical ("here's how to navigate this"), while David Bombal and Cybernews lean more alarmist ("wild west," "dangerous evolution")
+- **Focus**: Humphreys Tech Hub frames the shift as "human to AI automated hacking" — a complete paradigm change. Others see it as an acceleration of existing trends rather than a fundamental shift.
+
+### Most Substantive Videos
+
+1. **David Bombal — "AI Makes Every System Riskier"** (422K views, 42 min): Deep technical discussion with specific attack scenarios (prompt injection in medical systems, permission escalation). Most detailed threat modeling.
+2. **IBM Technology — "Shadow AI, Quantum & Deepfakes"** (230K views, 20 min): Data-driven with IBM's breach cost research. Best for executive-level understanding.
+3. **Cybernews — "The Dangerous Evolution of AI Hacking"** (508K views, 28 min): Strong narrative framing of how LLMs can be weaponized. Most accessible for general audience.
+
+### Quality Assessment
+
+- **High value**: IBM Technology (data-backed), David Bombal (technical depth), Cybernews (comprehensive narrative)
+- **Good for career guidance**: EVA BENN (practical AI security roadmap)
+- **Brief overview**: Humphreys Tech Hub (under 5 min, surface-level but good summary)
+- **Skippable from top 5**: None — all added distinct value
+
+### Specific Claims Worth Noting
+
+- Shadow AI adds $670K to average breach cost (IBM Technology, citing IBM's Cost of a Data Breach Report)
+- Prompt injection in healthcare AI could alter prescriptions (David Bombal's guest)
+- AI-generated phishing now adapts in real-time during conversations (Humphreys Tech Hub)
+- "If you skip the fundamentals and just learn to click buttons in AI tools, you will be the first person to be replaced" (EVA BENN)
+
+## Engagement Highlights
+
+| # | Video | Channel | Views | Subs | Ratio |
+|---|-------|---------|-------|------|-------|
+| 6 | DIR-Certified AI & Cybersecurity Training | Cyber Squad Video Series | 2.5K | 148 | 16.60x |
+| 8 | Threats No One Is Ready For | Humphreys Tech Hub | 3.5K | 366 | 9.51x |
+| 5 | Dangerous Evolution of AI Hacking | Cybernews | 508K | 880K | 0.58x |
+
+Videos 6 and 8 had exceptionally high engagement ratios, suggesting the content resonated well beyond their typical audience.

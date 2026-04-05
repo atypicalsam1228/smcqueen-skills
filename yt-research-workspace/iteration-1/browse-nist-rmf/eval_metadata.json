@@ -1,0 +1,12 @@
+{
+  "eval_id": 0,
+  "eval_name": "browse-nist-rmf",
+  "prompt": "Search YouTube for videos about NIST RMF compliance automation",
+  "assertions": [
+    {"id": "results-present", "text": "Output contains at least 3 video results"},
+    {"id": "metadata-complete", "text": "Each result includes title, channel, subscribers, views, duration, upload date, and URL"},
+    {"id": "engagement-ratio", "text": "Views/subs ratio is calculated and displayed for each result"},
+    {"id": "human-readable-numbers", "text": "Large numbers formatted as K/M/B not raw digits"},
+    {"id": "dividers-between-results", "text": "Visual separators between each result"}
+  ]
+}

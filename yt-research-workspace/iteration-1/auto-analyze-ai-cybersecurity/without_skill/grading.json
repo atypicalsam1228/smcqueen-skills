@@ -1,0 +1,11 @@
+{
+  "eval_id": 1,
+  "config": "without_skill",
+  "expectations": [
+    {"text": "At least 3 video transcripts were extracted", "passed": false, "evidence": "No transcripts — all tools denied by sandbox"},
+    {"text": "Output includes a cross-video research summary, not just raw transcripts", "passed": false, "evidence": "Output was model-knowledge guesses, not actual video analysis"},
+    {"text": "Analysis references specific videos by title and/or channel", "passed": false, "evidence": "No actual videos found"},
+    {"text": "Summary identifies key themes or consensus points across videos", "passed": false, "evidence": "Themes were speculative, not derived from actual content"},
+    {"text": "Search results with metadata shown before or alongside analysis", "passed": false, "evidence": "No search results"}
+  ]
+}

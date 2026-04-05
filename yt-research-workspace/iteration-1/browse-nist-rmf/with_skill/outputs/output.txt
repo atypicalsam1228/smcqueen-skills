@@ -1,0 +1,112 @@
+Searching YouTube for "NIST RMF compliance automation" (last 6 months)...
+
+======================================================================
+  YouTube Search: "NIST RMF compliance automation"
+  5 results found
+======================================================================
+
+  [ 1] This Tool Automates NIST RMF (Network Mapping → SSP Generation)
+       Channel:      Cam Stihel
+       Subscribers:  616
+       Views:        25
+       Duration:     8:43
+       Uploaded:     Jan 27, 2026
+       Views/Subs:   0.04x
+       URL:          https://www.youtube.com/watch?v=wWxaWKvkvTc
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 2] 6clicks expert guide - Automating NIST Cybersecurity Framework compliance with 6clicks
+       Channel:      6clicksTV
+       Subscribers:  251
+       Views:        3
+       Duration:     2:07
+       Uploaded:     Mar 31, 2026
+       Views/Subs:   0.01x
+       URL:          https://www.youtube.com/watch?v=aFT0NeMIy9w
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 3] Is RMF Broken? The Real Reason ATOs Keep Getting Delayed
+       Channel:      Tech Woke
+       Subscribers:  N/A
+       Views:        339
+       Duration:     51:21
+       Uploaded:     Feb 26, 2026
+       Views/Subs:   N/A
+       URL:          https://www.youtube.com/watch?v=Uo-QbWL88Js
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 4] Understanding the NIST Risk Management Framework RMF Lifecycle - NIST 2025
+       Channel:      CYVITRIX
+       Subscribers:  753
+       Views:        413
+       Duration:     14:19
+       Uploaded:     Oct 18, 2025
+       Views/Subs:   0.55x
+       URL:          https://www.youtube.com/watch?v=HobG41qa4nI
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  [ 5] NIST AI RMF Playbook Explained | Enterprise AI Risk Management Guide
+       Channel:      ProfessorBlackOps - CyberSecurity for the people
+       Subscribers:  4.7K
+       Views:        348
+       Duration:     1:01:04
+       Uploaded:     Jan 31, 2026
+       Views/Subs:   0.07x
+       URL:          https://www.youtube.com/watch?v=-v2zEkKQv2Y
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+<!-- JSON_DATA_START
+[
+  {
+    "index": 1,
+    "title": "This Tool Automates NIST RMF (Network Mapping \u2192 SSP Generation)",
+    "channel": "Cam Stihel",
+    "subscribers": 616,
+    "views": 25,
+    "duration_seconds": 523,
+    "upload_date": "20260127",
+    "url": "https://www.youtube.com/watch?v=wWxaWKvkvTc",
+    "views_to_subs_ratio": 0.04
+  },
+  {
+    "index": 2,
+    "title": "6clicks expert guide - Automating NIST Cybersecurity Framework compliance with 6clicks",
+    "channel": "6clicksTV",
+    "subscribers": 251,
+    "views": 3,
+    "duration_seconds": 127,
+    "upload_date": "20260331",
+    "url": "https://www.youtube.com/watch?v=aFT0NeMIy9w",
+    "views_to_subs_ratio": 0.01
+  },
+  {
+    "index": 3,
+    "title": "Is RMF Broken? The Real Reason ATOs Keep Getting Delayed",
+    "channel": "Tech Woke",
+    "subscribers": null,
+    "views": 339,
+    "duration_seconds": 3081,
+    "upload_date": "20260226",
+    "url": "https://www.youtube.com/watch?v=Uo-QbWL88Js",
+    "views_to_subs_ratio": null
+  },
+  {
+    "index": 4,
+    "title": "Understanding the NIST Risk Management Framework RMF Lifecycle - NIST 2025",
+    "channel": "CYVITRIX",
+    "subscribers": 753,
+    "views": 413,
+    "duration_seconds": 859,
+    "upload_date": "20251018",
+    "url": "https://www.youtube.com/watch?v=HobG41qa4nI",
+    "views_to_subs_ratio": 0.55
+  },
+  {
+    "index": 5,
+    "title": "NIST AI RMF Playbook Explained | Enterprise AI Risk Management Guide",
+    "channel": "ProfessorBlackOps - CyberSecurity for the people",
+    "subscribers": 4730,
+    "views": 348,
+    "duration_seconds": 3664,
+    "upload_date": "20260131",
+    "url": "https://www.youtube.com/watch?v=-v2zEkKQv2Y",
+    "views_to_subs_ratio": 0.07
+  }
+]
+JSON_DATA_END -->
