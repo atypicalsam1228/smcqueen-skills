@@ -1,0 +1,19 @@
+{
+  "name": "smcqueen-skills",
+  "version": "1.0.0",
+  "description": "Custom skills for cybersecurity training project generation and document conversion",
+  "author": {
+    "name": "Samuel McQueen",
+    "url": "https://github.com/atypicalsam1228"
+  },
+  "homepage": "https://github.com/atypicalsam1228/smcqueen-skills",
+  "repository": "https://github.com/atypicalsam1228/smcqueen-skills",
+  "license": "MIT",
+  "keywords": [
+    "cybersecurity",
+    "training",
+    "docx-to-markdown",
+    "document-conversion",
+    "skills"
+  ]
+}
