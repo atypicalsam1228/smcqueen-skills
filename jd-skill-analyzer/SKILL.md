@@ -4,6 +4,41 @@ Analyze one or more job descriptions to surface the skills, tools, certification
 
 Works for any job field — software engineering, finance, healthcare, cybersecurity, marketing, legal, and more. Categories and terminology are inferred from the JDs themselves, not pre-set.
 
+Results are saved as proper Obsidian notes with frontmatter, tags, and wikilinks — ready to drop into any vault.
+
+---
+
+## Prerequisites & Setup
+
+This skill integrates with Obsidian via [kepano/obsidian-skills](https://github.com/kepano/obsidian-skills). Install those skills first for the best experience:
+
+### Install obsidian-skills (one-time)
+
+**Option A — npx (recommended):**
+```bash
+npx skills add https://github.com/kepano/obsidian-skills
+```
+
+**Option B — manually for Claude Code:**
+Add the repo contents to a `/.claude` folder at the root of your Obsidian vault, then open that vault folder in Claude Code.
+
+### Install defuddle (for URL fetching)
+
+`defuddle` strips nav, ads, and clutter from web pages — producing clean markdown for JD extraction. Much more reliable than raw WebFetch for job boards.
+
+```bash
+npm install -g defuddle
+```
+
+### Skills used from obsidian-skills
+
+| Skill | Purpose in this workflow |
+|-------|--------------------------|
+| `defuddle` | Fetch and clean JD content from URLs |
+| `obsidian-markdown` | Save analysis results as valid Obsidian notes |
+
+> If defuddle is not installed, the skill falls back to WebFetch automatically.
+
 ---
 
 ## Subcommands
@@ -77,12 +112,18 @@ Accept any of:
 
 **File paths** — read with the Read tool.
 
-**URLs** — fetch with WebFetch using these rules:
-- Extract only the main job posting body. Discard nav, footer, sidebar, cookie banners, "similar jobs" blocks, and company boilerplate.
-- Supported job boards include: LinkedIn, Indeed, Glassdoor, Handshake, USAJobs, Dice, Workday-hosted postings, Greenhouse, Lever, and direct company career pages.
-- If WebFetch returns a login wall or an empty/minimal body (< 200 words), stop and tell the user: "This URL requires a login — paste the JD text directly instead."
-- If a URL returns a redirect or 404, skip it, note it in the final summary, and continue with the remaining JDs.
-- Fetch all URLs in parallel before processing.
+**URLs** — fetch using defuddle (preferred) or WebFetch (fallback):
+
+```bash
+defuddle parse <url> --md
+```
+
+- defuddle strips nav, ads, sidebars, cookie banners, and "similar jobs" blocks automatically, producing clean markdown
+- If defuddle is not installed, fall back to WebFetch with manual extraction
+- Supported job boards: LinkedIn, Indeed, Glassdoor, Handshake, USAJobs, Dice, Workday, Greenhouse, Lever, company career pages
+- If the result is a login wall or fewer than 150 words, skip it and tell the user: "This URL requires a login — paste the JD text directly instead."
+- If a URL returns 404 or redirects away from the job posting, skip it and note it in the final summary
+- Fetch all URLs in parallel before processing
 
 Process each JD separately, then aggregate. Track total JD count.
 
@@ -206,7 +247,42 @@ Compare frequency results against a resume or profile.
 
 On first save, ask: "Where should I save results? (default: current directory as `jd-analysis-{name}-{YYYY-MM-DD}.md`)"
 
-Format: markdown with frontmatter (JD count, date, field/role type), then one section per category as a ranked table.
+Save as a valid Obsidian note using `obsidian-markdown` conventions:
+
+```markdown
+---
+title: JD Analysis — {role}
+date: {YYYY-MM-DD}
+tags:
+  - career/jd-analysis
+  - career/{role-slug}
+role: {role}
+jd_count: {N}
+top_skills:
+  - {skill1}
+  - {skill2}
+  - {skill3}
+---
+
+# JD Analysis — {role}
+
+> [!summary] {N} job descriptions analyzed on {date}
+> Top skills: {skill1} ({%}), {skill2} ({%}), {skill3} ({%})
+
+## Technical Skills
+...
+
+## Tools & Platforms
+...
+
+## Related Notes
+- [[{role}-training-plan-{date}]]
+- [[Career/Resume]]
+```
+
+- Use `[[wikilinks]]` to cross-reference the training plan note if one was generated
+- Use `> [!summary]` callout for the at-a-glance header
+- Tags follow the `career/` namespace for easy vault filtering
 
 ---
 
@@ -333,10 +409,39 @@ One actual company, open-source project, published incident, or industry case st
 
 ### Step 5 — Output
 
-After generating, ask: "Save as a markdown file or display inline?"
+After generating, ask: "Save as an Obsidian note, plain markdown file, or display inline?"
 
-- **Markdown file:** save to user-specified path, or default to `{role}-training-plan-{YYYY-MM-DD}.md` in the current directory
-- **Inline:** display module by module in the conversation
+**Obsidian note** — save with proper frontmatter and structure:
+
+```markdown
+---
+title: Training Plan — {role}
+date: {YYYY-MM-DD}
+tags:
+  - career/training
+  - career/{role-slug}
+role: {role}
+modules: {M}
+skills_covered: {N}
+source: "[[jd-analysis-{role-slug}-{date}]]"
+---
+
+# Training Plan — {role}
+
+> [!abstract] {M} modules · {N} skills · Generated {date}
+> Based on gap analysis from [[jd-analysis-{role-slug}-{date}]]
+
+## Module 1: {Name}
+...
+```
+
+- Use `[[wikilink]]` to the analysis note it was generated from
+- Use `> [!abstract]` callout for the summary header
+- Tags follow the `career/` namespace
+
+**Plain markdown** — save to user-specified path, or default to `{role}-training-plan-{YYYY-MM-DD}.md` in the current directory
+
+**Inline** — display module by module in the conversation
 
 ---
 
