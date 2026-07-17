@@ -94,6 +94,7 @@ Parse the first argument after `/rmf-vault` to determine the subcommand:
 | `/rmf-vault index` | index |
 | `/rmf-vault status` | status |
 | `/rmf-vault ingest <path>` | ingest |
+| `/rmf-vault review` | review |
 | `/rmf-vault` (no args) | Show available subcommands |
 
 If no subcommand is given or it's unrecognized, show the list with one-line descriptions and ask the user to pick one.
@@ -396,6 +397,73 @@ This is the ONE exception to the "never modify Sources/" rule — it adds new do
    Run /rmf-vault compile to generate Wiki articles from this source
    Commit changes when ready
    ```
+
+---
+
+## /rmf-vault review
+
+Run a structured accuracy pass against vault sources after any compliance document is generated. **This subcommand is mandatory — do not present compliance output to the user without running it first.**
+
+### When to invoke
+- After generating any compliance document (control matrix, policy, procedure, runbook, reporting template)
+- After answering any compliance question that cites specific control parameters, timeframes, agency names, or process ownership
+- MANDATORY before presenting output to the user
+
+### Workflow
+
+1. **Extract all verifiable claims** from the document or answer:
+   - Control IDs cited (AC-2, IA-5, CA-8, etc.)
+   - Specific parameters (timeframes, thresholds, rotation intervals, SLA windows)
+   - Agency or program names (CISA, FedRAMP PMO, US-CERT, etc.)
+   - Process attributions (who owns what, who produces what deliverable)
+   - Named standards or revision numbers (Rev 4 vs Rev 5, 800-63B, etc.)
+
+2. **For each claim — Wiki first:**
+   - Grep `VAULT_PATH/Wiki/` for the control ID or key term
+   - If a Wiki article exists: read it and verify the claim matches the article's sourced content
+   - If the Wiki article cites a Source file: spot-check that Source to confirm no citation drift
+
+3. **If no Wiki hit — Sources directly:**
+   - Grep `VAULT_PATH/Sources/` for the control ID or key term
+   - Read the matching passage
+   - Verify the claim matches the authoritative text exactly
+
+4. **Classify each claim:**
+   - ✅ **VERIFIED** — claim matches vault source; note the source file
+   - ⚠️ **DRIFT** — claim partially matches but has incorrect details (wrong timeframe, deprecated term, wrong attribution); provide the correct text from the source
+   - ❌ **UNVERIFIED** — no vault source found; do not include in deliverable without flagging
+
+5. **Output review report before presenting the document:**
+
+   ```
+   ══════════════════════════════════════════
+     Vault Review Report
+   ══════════════════════════════════════════
+     Claims reviewed:   N
+     ✅ Verified:       N
+     ⚠️  Drift found:   N
+     ❌ Unverified:     N
+   ──────────────────────────────────────────
+     Drift / Corrections
+     ──────────────────────────────────────
+     [Claim]: "60-day rotation cycle"
+     [Source]: Sources/NIST-800-53/nist-sp-800-53r5-full.md — IA-5(f)
+     [Correct]: Organization-defined time period OR organization-defined events — no prescribed interval
+     [Fix applied]: Replaced with event-triggered language
+
+     [Claim]: "US-CERT"
+     [Source]: CISA absorbed US-CERT — Sources/FedRAMP confirm CISA only
+     [Fix applied]: Replaced all instances with CISA
+
+     Unverified Claims (NEEDS SOURCE)
+     ──────────────────────────────────────
+     [Claim]: ...
+     [Action]: Flagged with [!danger] NEEDS SOURCE or removed from deliverable
+   ══════════════════════════════════════════
+   ```
+
+6. **Apply all corrections inline** before presenting the document to the user.
+   Do not present until all DRIFT items are corrected and all UNVERIFIED items are either sourced or explicitly flagged.
 
 ---
 
