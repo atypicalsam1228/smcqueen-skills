@@ -467,6 +467,46 @@ Run a structured accuracy pass against vault sources after any compliance docume
 
 ---
 
+### Common Drift Patterns to Watch For
+
+These patterns surface repeatedly in FedRAMP acceptance criteria and compliance documents. Flag them proactively during review.
+
+#### 1. "Org-defined" used where FedRAMP assigned a hard value
+FedRAMP Moderate assigns specific minimums for many parameters that NIST leaves org-defined. Saying "org-defined" when FedRAMP assigned the value is an INACCURATE under-constraint. Key examples:
+- AU-6: **at least weekly** (not org-defined)
+- CM-5(5): **at least quarterly** (not org-defined)
+- CM-7(5): **at least quarterly or when there is a change** (not org-defined)
+- CM-8: **at least monthly** (not org-defined)
+- AC-6(7): **at least annually** (not org-defined)
+- SR-6: **at least annually** (not org-defined)
+- AC-11: **15 minutes or less** (not org-defined)
+- CP-9: **daily incremental / weekly full** (not org-defined)
+- RA-5: **monthly** for OS/infra/web apps/databases (not org-defined)
+
+#### 2. Arbitrary evidence scoping windows presented as requirements
+Sample sizes ("last 10 entries"), lookback windows ("last 30/90 days"), and sample counts ("last 3 changes") are assessor judgment calls — not control requirements. Flag any hardcoded evidence window that doesn't map to a FedRAMP-assigned parameter.
+
+#### 3. Cross-control contamination
+A requirement from control X appearing inside the criteria for control Y. Common examples:
+- AU-11 retention language inside AC-2(4) (retention belongs to AU-11, not AC-2(4))
+- TLS version / cipher suite language inside AC-17(2) (belongs to SC-8/SC-13)
+- SIEM destination requirements inside control statements that only require logging
+Each control should be assessed against its own statement, not a neighbor's.
+
+#### 4. Internal inconsistency within the same criteria block
+A verify step that says "org-defined" while the collect step says "quarterly" — contradictions within the same control's criteria. Read both lines together against the source.
+
+#### 5. IA-5(1) / NIST 800-63B deprecation
+Traditional password complexity rules (upper/lower/special/numbers), forced rotation schedules, and minimum password age are **explicitly deprecated** by NIST SP 800-63B and reflected in FedRAMP IA-5(1) Additional Requirements. Any criteria that requires forced rotation or traditional complexity rules for memorized secrets is INACCURATE. Correct language: length minimum, commonly-used password rejection, cryptographic protection in transit/storage.
+
+#### 6. Hardcoded implementation choices presented as control requirements
+Specific cipher suite names (AES-256-GCM, SHA-384), specific tool names as the only acceptable evidence, or specific protocol versions as requirements. Controls like SC-8(1) require FIPS-validated modules — they do not mandate a specific cipher suite. Narrow the claim to what the control actually mandates.
+
+#### 7. Unauthorized frequency cadences on review-type controls
+AC-2(7) (monitor privileged assignments), AC-6(5) (restrict privileged accounts) — neither has a FedRAMP-assigned review frequency. "Quarterly" review language on these controls comes from AC-2(j) privileged account review and should not be applied to individual enhancements that don't own that parameter.
+
+---
+
 ## Frontmatter Convention
 
 All Wiki notes use this YAML frontmatter with Obsidian-typed properties:

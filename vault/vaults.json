@@ -1,0 +1,58 @@
+{
+  "vaults": [
+    {
+      "name": "cmmc",
+      "display": "CMMC Knowledge Vault",
+      "vault_path": "C:/Users/samue/OneDrive/Obsidian/CMMC_Vault",
+      "git_dir": "C:/Users/samue/repos/cmmc_vault.git",
+      "skill": "cmmc-vault",
+      "domains": ["CMMC-Model", "NIST-800-171", "NIST-800-172", "Assessment-Guides", "DoD-Policy", "CUI-Categories", "Exam-Prep"],
+      "identifiers_ref": "references/CMMC-PRACTICE-IDENTIFIERS.md"
+    },
+    {
+      "name": "aws",
+      "display": "AWS Learning Vault",
+      "vault_path": "C:/Users/samue/OneDrive/Obsidian/aws_learn_vault",
+      "git_dir": "C:/Users/samue/repos/aws_learn_vault.git",
+      "skill": "aws-vault",
+      "domains": ["AWS-Gen-AI", "AWS-ML", "AWS-Core", "AWS-Security", "AWS-Architecture", "Exam-Prep"],
+      "identifiers_ref": "references/AWS-SERVICE-IDENTIFIERS.md"
+    },
+    {
+      "name": "cmmc_ccp_exam",
+      "display": "CMMC CCP Exam Vault",
+      "vault_path": "C:/Users/samue/OneDrive/Obsidian/cmmc_exam/cmmc_ccp_exam",
+      "git_dir": "C:/Users/samue/repos/cmmc_ccp_exam.git",
+      "skill": null,
+      "domains": ["Official", "Exam-Prep", "CMMC-Overview", "Training", "Community"]
+    },
+    {
+      "name": "cloudops",
+      "display": "AWS CloudOps Engineer Vault",
+      "vault_path": "C:/Users/samue/OneDrive/Obsidian/AWS_Cloud_Ops_Engineer",
+      "git_dir": "C:/Users/samue/repos/aws_cloudops_vault.git",
+      "skill": "cloudops-vault",
+      "notebooklm_id": "806bd12a-4494-4630-9771-33fdc2f24db3",
+      "domains": ["Monitoring-Logging", "Reliability", "Deployment-Automation", "Security-Compliance", "Networking", "Cost-Performance", "Exam-Prep"]
+    }
+    ,{
+      "name": "cities-skylines",
+      "display": "Cities Skylines — City Design Ideas",
+      "vault_path": "C:/Users/samue/OneDrive/Obsidian/Cities_Skylines",
+      "git_dir": "C:/Users/samue/repos/cities_skylines_vault.git",
+      "skill": null,
+      "created": "2026-05-24",
+      "domains": ["City-Layouts", "Districts", "Transportation", "Economy", "Aesthetics", "Tips-Tricks"]
+    }
+    ,{
+      "name": "CISSP",
+      "display": "CISSP Exam Prep Vault",
+      "vault_path": "C:/Users/samue/OneDrive/Obsidian/CISSP",
+      "git_dir": null,
+      "skill": "exam-prep",
+      "notebooklm_id": "52e8c40a-580c-48c2-a89e-3613bf0decb9",
+      "created": "2026-05-12",
+      "domains": ["Security-Risk-Management", "Asset-Security", "Security-Architecture-Engineering", "Communication-Network-Security", "Identity-Access-Management", "Security-Assessment-Testing", "Security-Operations", "Software-Development-Security", "Exam-Prep"]
+    }
+  ]
+}

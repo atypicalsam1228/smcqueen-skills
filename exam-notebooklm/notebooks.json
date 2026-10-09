@@ -1,0 +1,18 @@
+{
+  "notebooks": [
+    {
+      "exam": "SOA-C03",
+      "name": "AWS Certified CloudOps Engineer Associate",
+      "notebook_id": "806bd12a-4494-4630-9771-33fdc2f24db3",
+      "created": "2026-05-11",
+      "source_count": 63
+    },
+    {
+      "exam": "CISSP",
+      "name": "Certified Information Systems Security Professional",
+      "notebook_id": "52e8c40a-580c-48c2-a89e-3613bf0decb9",
+      "created": "2026-05-12",
+      "source_count": 124
+    }
+  ]
+}

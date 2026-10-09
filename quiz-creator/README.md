@@ -1,63 +1,110 @@
 # Quiz Creator Skill
 
-Generate exam-style practice quiz applications from authoritative source documents. Built for AWS certification prep but adaptable to any exam.
+Generate exam-style practice quiz applications from authoritative source documents. Built for AWS AIP-C01 but adaptable to any certification exam.
 
 ## What It Does
 
 The complete quiz creation pipeline:
 
-1. **Scrape** — Pull AWS documentation pages into your vault as authoritative sources using Firecrawl
-2. **Generate** — Create scenario-based exam questions from source docs, organized by exam domain
-3. **Build** — Produce a self-contained Python + HTML quiz app (zero dependencies)
-4. **Launch** — Start the local quiz server and open in browser
+1. **Setup** — Parse an exam guide/syllabus to extract domains, tasks, and skills as a coverage map
+2. **Scrape** — Pull documentation pages into your vault as authoritative sources
+3. **Generate** — Create constraint-based trade-off questions tagged by domain and task
+4. **Gap Analysis** — Cross-reference questions against the exam guide to find uncovered skills
+5. **Gap Fill** — Generate targeted questions for uncovered skills
+6. **Build** — Produce a self-contained Python + HTML quiz app (zero dependencies)
+7. **Launch** — Start the local quiz server and open in browser
+
+## Pipeline Overview
+
+```
+ Upload Exam Guide         Ingest Source Docs        Generate Questions
+ ┌─────────────────┐      ┌──────────────────┐      ┌──────────────────┐
+ │ Extract domains │      │ PDFs, web scrapes │      │ Constraint-based │
+ │ tasks, skills   │─────►│ screencaptures,  │─────►│ trade-off format │
+ │ Build coverage  │      │ course material   │      │ Domain+task tags │
+ │ map             │      │ test-taker intel  │      │ Detailed explain │
+ └─────────────────┘      └──────────────────┘      └──────────────────┘
+                                                            │
+ ┌─────────────────┐      ┌──────────────────┐             │
+ │ Study + retry   │      │ Build quiz app   │             ▼
+ │ missed questions│◄─────│ Domain sets      │      ┌──────────────────┐
+ │ Track progress  │      │ Topic drill-down │◄─────│ Gap analysis     │
+ │ Improve scores  │      │ Answer shuffle   │      │ Fill uncovered   │
+ └─────────────────┘      └──────────────────┘      │ skills           │
+                                                     └──────────────────┘
+```
 
 ## Architecture
 
 ```
-Vault (Sources/)                    Quiz App
-┌──────────────────┐               ┌──────────────────────┐
-│ AWS-Gen-AI/      │──┐            │ quiz_server.py       │
-│ AWS-Core/        │  │  parse     │   - Markdown parser  │
-│ Exam-Prep/       │  ├──────────► │   - HTTP server      │
-│   Practice-Q/    │  │            │   - JSON API         │
-│   Bonus-Q/       │  │            ├──────────────────────┤
-│   Generated-Q/   │──┘            │ quiz_app.html        │
-│     domain-1.md  │               │   - Start screen     │
-│     domain-2.md  │               │   - Domain sidebar   │
-│     domain-3.md  │               │   - Quiz UI          │
-│     domain-4.md  │               │   - Results + scores │
-│     domain-5.md  │               │   - Progress persist │
-└──────────────────┘               └──────────────────────┘
+Source Documents                    Quiz App
+┌──────────────────────┐           ┌──────────────────────────┐
+│ Sources/             │           │ quiz_server.py           │
+│   AWS-Gen-AI/        │──┐       │   - Markdown parser      │
+│   AWS-Core/          │  │       │   - Domain/task classify  │
+│   Exam-Prep/         │  │ parse │   - Task interleaving    │
+│     Practice-Q/      │  ├──────►│   - HTTP server + API    │
+│     Bonus-Q/         │  │       ├──────────────────────────┤
+│     Generated-Q/     │──┘       │ quiz_app.html            │
+│       domain-1-5.md  │          │   - Domain sets (15-20q) │
+│       trade-off.md   │          │   - Topic drill-down     │
+│       agentic-ai.md  │          │   - Answer shuffling     │
+│       safety-gov.md  │          │   - 3-retry missed Qs    │
+│       svc-diff.md    │          │   - Progress tracking    │
+│       gap-fill.md    │          │   - Keyboard shortcuts   │
+│       skillbuilder.md│          └──────────────────────────┘
+│       screencapture.md│
+└──────────────────────┘
 ```
+
+## Quiz App Features
+
+- **202 questions** across 5 exam domains from 12 question files
+- **Domain sets of 15-20 questions** — manageable ~30 min sessions
+- **Task-balanced distribution** — round-robin interleaving so each set covers all tasks in the domain
+- **Topic-focused mode** — drill down on RAG, Agents, Guardrails, Cost, Monitoring, etc.
+- **Randomized answer order** — A-D positions shuffled each session, reshuffled on retry
+- **3-attempt retry for missed questions** — immediate reinforcement with attempt history tracking
+- **Auto domain classification** — keyword-based classifier for untagged questions
+- **Auto task classification** — keyword-based task tagging for balanced interleaving
+- **Multiple quiz modes**: domain sets, topics, all, missed, random 10, shuffled, BenchPrep, generated
+- **Domain-grouped sidebar** with expandable sections and per-domain scoring
+- **Detailed explanations** for every answer (correct and incorrect, 4+ sentences each)
+- **Progress tracking** persisted to JSON — resume across sessions
+- **Per-domain results** with progress bars and attempt history
+- **Keyboard shortcuts**: 1-5 select, Enter check/next, arrows navigate, F flag
+- **Zero dependencies** — Python stdlib only, runs anywhere
 
 ## Quick Start
 
 ```bash
-# Generate questions for all domains
+# Step 1: Parse the exam guide (required)
+/quiz-creator setup path/to/exam-guide.pdf
+
+# Step 2: Generate questions for all domains
 /quiz-creator generate all
 
-# Generate 15 questions for Domain 1 only
-/quiz-creator generate 1 15
+# Step 3: Run gap analysis
+/quiz-creator gap-analysis
 
-# Scrape a missing AWS doc
-/quiz-creator scrape https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html
+# Step 4: Fill gaps
+/quiz-creator gap-fill
 
-# Build the quiz app from scratch
+# Step 5: Build and launch
 /quiz-creator build
-
-# Launch the quiz
 /quiz-creator launch
 ```
 
 ## Question Format
 
-Questions are stored as Obsidian-compatible markdown in the vault using callout syntax:
+Questions are stored as Obsidian-compatible markdown using callout syntax:
 
 ```markdown
 ## Question 1
 
-> [!question] Question — Descriptive Title (Task 1.2)
+> [!question] Question — Descriptive Title (Domain 1)
 > A company is building a generative AI application...
+> The system must meet a 500ms latency SLA...
 >
 > Which solution will meet these requirements?
 >
@@ -75,55 +122,50 @@ Questions are stored as Obsidian-compatible markdown in the vault using callout 
 > **D. Incorrect.** SageMaker endpoints add...
 ```
 
-## Quiz App Features
+## AIP-C01 Implementation Stats
 
-- **66 questions** across 5 exam domains + 16 BenchPrep originals
-- **Domain-grouped sidebar** with expandable sections and per-domain scoring
-- **Multiple quiz modes**: By domain, all, BenchPrep only, generated only, missed, random, shuffled
-- **Detailed explanations** for every answer (correct and incorrect)
-- **Progress tracking** persisted to JSON — resume across sessions
-- **Per-domain results** with progress bars on the results screen
-- **Keyboard shortcuts**: 1-5 select, Enter check/next, arrows navigate, F flag
-- **Zero dependencies** — Python stdlib only, runs anywhere
+| # | Domain | Weight | Questions |
+|---|--------|--------|-----------|
+| 1 | Foundation Model Integration, Data Management, and Compliance | 31% | 55 |
+| 2 | Implementation and Integration | 26% | 50 |
+| 3 | AI Safety, Security, and Governance | 20% | 45 |
+| 4 | Operational Efficiency and Optimization | 12% | 31 |
+| 5 | Testing, Validation, and Troubleshooting | 11% | 21 |
+| | **Total** | | **202** |
+
+**Skill coverage: 83/89 exam guide skills (93%)**
 
 ## File Layout
 
 ```
 ~/.claude/skills/quiz-creator/
-├── SKILL.md                          # Skill definition
-├── README.md                         # This file
+├── SKILL.md                                # Skill definition (subcommands + workflows)
+├── README.md                               # This file
 └── references/
-    └── DOMAIN-SOURCE-MAP.md          # Domain → source document mapping
+    ├── DOMAIN-SOURCE-MAP.md                # AIP-C01: domain → source document mapping
+    └── QUESTION-GENERATION-GUIDE.md        # How to generate high-quality exam questions
 
 ~/repos/aip-c01-quiz/
-├── quiz_server.py                    # Parser + HTTP server
-├── quiz_app.html                     # Self-contained quiz UI
-└── progress.json                     # Auto-created session data
+├── quiz_server.py                          # Parser + classifier + HTTP server (720 lines)
+├── quiz_app.html                           # Self-contained quiz UI (1062 lines)
+└── progress.json                           # Auto-created session data
 
-~/OneDrive/Obsidian/aws_learn_vault/Sources/
-├── Exam-Prep/Generated-Questions/    # Generated question files
-│   ├── domain-1-generated.md
-│   ├── domain-2-generated.md
-│   ├── domain-3-generated.md
-│   ├── domain-4-generated.md
-│   └── domain-5-generated.md
-└── scraped-sources-readme.md         # Index of scraped docs
+~/OneDrive/Obsidian/aws_learn_vault/Sources/Exam-Prep/Generated-Questions/
+├── _index.md                               # Question file index
+├── domain-1-generated.md through domain-5-generated.md  # 50 original (revised)
+├── trade-off-questions.md                  # 25 constraint-based trade-offs
+├── domain-3-safety-governance.md           # 10 safety/governance deep-dive
+├── agentic-ai-questions.md                 # 8 agentic AI questions
+├── service-differentiation.md              # 10 service comparison questions
+├── skillbuilder-extracted-questions.md     # 33 converted Skill Builder questions
+├── screencapture-tradeoff-questions.md     # 30 screencapture trade-offs
+└── gap-filling-questions.md                # 20 gap-filling questions
 ```
-
-## AIP-C01 Exam Domains
-
-| # | Domain | Weight | Questions |
-|---|--------|--------|-----------|
-| 1 | Foundation Model Integration, Data Management, and Compliance | 31% | 10 |
-| 2 | Implementation and Integration | 26% | 10 |
-| 3 | AI Safety, Security, and Governance | 20% | 10 |
-| 4 | Operational Efficiency and Optimization | 12% | 10 |
-| 5 | Testing, Validation, and Troubleshooting | 11% | 10 |
 
 ## Related Skills
 
 - `/aws-vault` — Manages the Obsidian vault where sources and questions live
-- `/firecrawl` — Scrapes AWS documentation pages
-- `/notebooklm` — Analyze sources to identify testable concepts
-- `/web-research` — Research topics before question generation
+- `/firecrawl` — Scrapes documentation pages for source material
+- `/notebooklm` — Analyze sources to identify testable concepts per domain
+- `/web-research` — Research topics online before question generation
 - `/guided-learning` — Teach weak areas identified by quiz results

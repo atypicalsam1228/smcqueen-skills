@@ -1,217 +1,308 @@
 ---
 name: quiz-creator
-description: "Generate exam-style practice quiz apps from source documents. Scrapes AWS docs, generates scenario-based questions by domain, builds a local Python+HTML quiz app with progress tracking. Use when the user invokes /quiz-creator or asks to create practice quizzes, generate exam questions, build a quiz app, or study for a certification."
+description: "Generate exam-style practice quiz apps from source documents. Upload an exam guide/syllabus, ingest source docs, generate constraint-based trade-off questions by domain, run gap analysis, and build a local Python+HTML quiz app with domain sets, topic drill-down, answer shuffling, 3-retry, and progress tracking. Works for any certification exam."
 ---
 
 # Quiz Creator
 
-Generate exam-style practice quiz applications from authoritative source documents. Produces a self-contained Python + HTML app with domain-grouped questions, detailed answer explanations, and progress tracking.
+Generate exam-style practice quiz applications from authoritative source documents and an exam guide. Produces a self-contained Python + HTML app with domain-grouped question sets, task-balanced distribution, topic drill-down, randomized answer order, missed-question retry, and progress tracking.
+
+**Works for any certification exam** — not just AWS. The exam guide drives everything.
+
+## Prerequisites
+
+1. **Exam guide or syllabus** (required) — PDF or markdown listing domains, tasks, and skills
+2. **Source documents** (required) — official docs, whitepapers, course material, test-taker intel
+3. **Obsidian vault** (recommended) — for organized source management, wikilinks, and study reference
+4. **Firecrawl** (optional) — for scraping additional documentation
+
+## Two Operating Modes
+
+| Mode | What You Need | Best For |
+|------|---------------|----------|
+| **Minimal** | A folder with source docs + exam guide | Quick setup, single user |
+| **Full (recommended)** | Obsidian vault with Sources/Wiki/Capture structure | Team use, ongoing study, cross-referencing |
+
+In Minimal mode, questions are generated into a flat folder. In Full mode, questions go into the vault's `Generated-Questions/` directory with wikilinks to source documents.
 
 ## Configuration
 
 ```
-QUIZ_DIR: C:/Users/samue/repos/aip-c01-quiz
-VAULT_PATH: C:/Users/samue/OneDrive/Obsidian/aws_learn_vault
-GENERATED_DIR: {VAULT_PATH}/Sources/Exam-Prep/Generated-Questions
+EXAM_NAME: (set by user — e.g., "CISSP", "CompTIA Security+", "PMP")
+QUIZ_DIR: (set by user — e.g., ~/repos/cissp-quiz)
+EXAM_GUIDE_PATH: (set by user — path to exam guide PDF or markdown)
 ```
 
-> **To adapt for another project:** Change `QUIZ_DIR` and `VAULT_PATH` above. The quiz app files live in `QUIZ_DIR`; generated question markdown goes into the vault at `GENERATED_DIR`.
+**For Obsidian Full mode, also set:**
+```
+VAULT_PATH: (set by user — path to Obsidian vault root)
+GENERATED_DIR: {VAULT_PATH}/Sources/Exam-Prep/Generated-Questions
+SOURCE_DIR: {VAULT_PATH}/Sources
+```
+
+**For Minimal mode:**
+```
+SOURCE_DIR: (set by user — folder containing source documents)
+GENERATED_DIR: (set by user — folder for generated question files)
+```
+
+> **Note:** For exam-specific pre-configured instances, see dedicated skills like `/aip-c01-quiz` which come with paths, sources, and questions already set up.
 
 ## Subcommand Selection
 
-Parse the first argument after `/quiz-creator` to determine the subcommand:
-
 | User invokes | Subcommand |
 |---|---|
-| `/quiz-creator generate <domain> [count]` | generate |
-| `/quiz-creator scrape <topic>` | scrape |
+| `/quiz-creator setup <exam-guide-path>` | setup |
+| `/quiz-creator generate <domain\|all> [count]` | generate |
+| `/quiz-creator generate-topics` | generate-topics |
+| `/quiz-creator gap-analysis` | gap-analysis |
+| `/quiz-creator gap-fill [count]` | gap-fill |
+| `/quiz-creator scrape <topic\|url>` | scrape |
 | `/quiz-creator build` | build |
 | `/quiz-creator status` | status |
 | `/quiz-creator launch` | launch |
 | `/quiz-creator` (no args) | Show available subcommands |
 
-If no subcommand is given or it's unrecognized, show the list with one-line descriptions and ask the user to pick one.
+---
+
+## /quiz-creator setup <exam-guide-path>
+
+**This is Step 1. Run this before generating any questions.**
+
+Parse an exam guide or syllabus to extract the complete skill map that drives question generation and gap analysis.
+
+### Workflow
+
+1. **Read the exam guide** at `<exam-guide-path>`:
+   - If PDF, extract text first (pdfplumber or vision)
+   - If markdown, read directly
+
+2. **Extract the complete structure:**
+   - All domains with exam weights (e.g., "Domain 1: FM Integration — 31%")
+   - All tasks within each domain (e.g., "Task 1.1: Analyze requirements")
+   - All skills within each task (e.g., "Skill 1.1.1: Create architectural designs")
+   - Question types the exam uses (single, multi-select, ordering, matching)
+   - Total scored questions and passing score
+
+3. **Create a coverage map file** at `{GENERATED_DIR}/_coverage-map.md`:
+   ```markdown
+   # {EXAM_NAME} Coverage Map
+   Generated: {date}
+   
+   ## Domain 1: {Name} ({weight}%)
+   ### Task 1.1: {Description}
+   - [ ] Skill 1.1.1: {Description} — GAP
+   - [ ] Skill 1.1.2: {Description} — GAP
+   ### Task 1.2: {Description}
+   ...
+   ```
+   All skills start as GAP. They get updated to COVERED/PARTIAL as questions are generated.
+
+4. **Output summary:**
+   ```
+   ══════════════════════════════════════
+     Exam Guide Parsed
+   ══════════════════════════════════════
+     Exam:       {EXAM_NAME}
+     Domains:    N (with weights)
+     Tasks:      N
+     Skills:     N
+     Q Types:    single, multi-select, ordering
+     Coverage:   {GENERATED_DIR}/_coverage-map.md
+   ──────────────────────────────────────
+     Next: ingest source docs, then
+     /quiz-creator generate all
+   ══════════════════════════════════════
+   ```
 
 ---
 
-## /quiz-creator generate <domain> [count]
+## /quiz-creator generate <domain|all> [count]
 
-Generate exam-style questions for a specific domain from vault source material.
+Generate constraint-based trade-off questions for a specific domain or all domains.
 
 ### Arguments
 
-- `<domain>`: Domain number (1-5) or `all` for all domains
-- `[count]`: Number of questions per domain (default: 10, split 7 single-answer + 3 multi-select)
+- `<domain>`: Domain number (1-5) or `all`
+- `[count]`: Questions per domain (default: 10, split ~70% single + ~25% multi-select + ~5% ordering)
 
 ### Workflow
 
-1. **Read the exam guide** to understand domain tasks and skills:
-   - `{VAULT_PATH}/Sources/Exam-Prep/ai-professional-01.md`
-   - Extract the specific Task/Skill items for the requested domain
+1. **Read the coverage map** to understand which tasks/skills need questions
 
-2. **Identify source material** for the domain:
-   - Scan `{VAULT_PATH}/Sources/` for relevant documents
-   - Read `references/DOMAIN-SOURCE-MAP.md` for the recommended source-to-domain mapping
-   - Read substantial portions of each source to understand what's available
-   - If sources are insufficient, recommend scraping additional docs first
+2. **Read the exam guide** for the specific domain's tasks and skills
 
-3. **Generate questions** following these quality requirements:
-   - **Scenario-based**: Each question starts with a company/developer facing a real problem (2-3 paragraphs)
-   - **Multi-service**: Most questions involve 2+ AWS services in the scenario
-   - **Plausible distractors**: Wrong answers must be real AWS services/features used incorrectly
-   - **Sourced explanations**: Every explanation (correct AND incorrect) cites specific source doc content explaining WHY
-   - **Exam-aligned**: Map each question to a specific Task/Skill from the exam guide
-   - **Question types**: 70% single-answer (A-D), 30% multi-select (A-E, "Select TWO")
+3. **Identify source material:**
+   - Scan `{SOURCE_DIR}/` for relevant documents
+   - Read substantial portions to understand available content
+   - If sources are thin, recommend scraping first
 
-4. **Write the question file** to `{GENERATED_DIR}/domain-{N}-generated.md`:
+4. **Generate questions** following the constraint-based trade-off pattern:
+   - Read `references/QUESTION-GENERATION-GUIDE.md` for the full methodology
+   - Every question: realistic scenario + hard constraint + 4 plausible options
+   - Two answers technically work, only one satisfies all constraints
+   - Tag each question with `(Domain N)` and `(Task X.Y)` in the title
+   - Detailed explanations for ALL options (4+ sentences each)
+   - 70% single-answer, 25% multi-select, 5% ordering
 
-```markdown
----
-type: generated-questions
-domain: {N}
-domain_name: "{Domain Name}"
-question_count: {count}
-sources:
-  - "[[Sources/path/to/source1]]"
-  - "[[Sources/path/to/source2]]"
-generated: {date}
----
+5. **Write question file** to `{GENERATED_DIR}/`:
+   - Single-domain: `domain-{N}-generated.md`
+   - Category files: `{category}-questions.md`
 
-# Domain {N}: {Domain Name}
+6. **Update coverage map** — mark skills as COVERED for each question generated
 
-## Question 1
-
-> [!question] Question — Descriptive Title (Task X.Y)
-> Real-world scenario text (2-3 paragraphs)...
->
-> Which solution will meet these requirements?
->
-> **A.** Option text
->
-> **B.** Option text
->
-> **C.** Option text
->
-> **D.** Option text
-
-> [!example]- Answer: B
-> **Correct Answer:** B
->
-> **A. Incorrect.** Detailed explanation citing source doc...
->
-> **B. Correct.** Detailed explanation citing source doc...
->
-> **C. Incorrect.** Detailed explanation...
->
-> **D. Incorrect.** Detailed explanation...
-
-## Question 2
-...
-```
-
-For multi-select questions:
-```markdown
-> Which combination of steps will meet these requirements? (Select TWO.)
->
-> **A.** through **E.**
-
-> [!example]- Answer: B, D
-```
-
-5. **Output summary:**
-```
-══════════════════════════════════════
-  Questions Generated
-══════════════════════════════════════
-  Domain:    {N} - {Domain Name}
-  Questions: {count} ({single} single + {multi} multi-select)
-  File:      {GENERATED_DIR}/domain-{N}-generated.md
-  Sources:   {N} documents referenced
-──────────────────────────────────────
-  Run /quiz-creator launch to test
-  Commit when ready
-══════════════════════════════════════
-```
+7. **Output summary** with question count, domain, file path, and updated coverage %
 
 ---
 
-## /quiz-creator scrape <topic>
+## /quiz-creator generate-topics
 
-Scrape AWS documentation pages to fill source material gaps.
+Generate topic-focused question sets for drill-down practice.
 
 ### Workflow
 
-1. **Determine what to scrape:**
-   - If `<topic>` is a URL, scrape that URL directly
-   - If `<topic>` is a service name (e.g., "bedrock-agents"), use Firecrawl to find the right AWS docs page
-   - If `<topic>` is a domain number, scrape recommended gap-fill docs from `references/DOMAIN-SOURCE-MAP.md`
+1. **Analyze existing questions** to identify natural topic clusters:
+   - RAG & Retrieval, Prompt Engineering, Agentic AI, Model Deployment, Streaming & APIs
+   - Guardrails & Safety, Data Privacy, Governance, Cost Optimization, Monitoring, Evaluation
 
-2. **Scrape using Firecrawl:**
+2. **For each topic with fewer than 5 questions**, generate additional questions from source material
+
+3. **Tag questions with topic keywords** in titles and scenarios so the quiz app's keyword classifier can group them
+
+4. **Write to** `{GENERATED_DIR}/topic-{name}-questions.md`
+
+---
+
+## /quiz-creator gap-analysis
+
+Compare all generated questions against the exam guide's skill map and report coverage.
+
+### Workflow
+
+1. **Read the coverage map** from `{GENERATED_DIR}/_coverage-map.md`
+
+2. **Read ALL question files** in `{GENERATED_DIR}/`
+
+3. **For each skill in the exam guide:**
+   - Search all questions for coverage (by task tag, keywords, or scenario content)
+   - Mark as COVERED, PARTIAL, or GAP
+
+4. **Calculate coverage:** COVERED / total skills
+
+5. **Output report:**
+   ```
+   ══════════════════════════════════════
+     Gap Analysis: {EXAM_NAME}
+   ══════════════════════════════════════
+     Total skills:    89
+     Covered:         67 (75%)
+     Partial:         16 (18%)
+     Gap:              6 (7%)
+
+     Critical Gaps (high-weight domains)
+     ────────────────────────────────────
+     1.1.3  Well-Architected GenAI Lens    D1 (31%)
+     1.5.5  Query decomposition            D1 (31%)
+     2.3.4  Edge deployment (Outposts)     D2 (26%)
+     ...
+
+     Recommendation: generate 15-20 gap-filling questions
+     Run /quiz-creator gap-fill 20
+   ══════════════════════════════════════
+   ```
+
+6. **Update the coverage map file** with current status
+
+---
+
+## /quiz-creator gap-fill [count]
+
+Generate questions specifically targeting uncovered exam guide skills.
+
+### Arguments
+
+- `[count]`: Number of gap-filling questions (default: 20)
+
+### Workflow
+
+1. **Read the coverage map** — identify all GAP and PARTIAL skills
+
+2. **Prioritize by domain weight** — fill high-weight domain gaps first
+
+3. **For each gap**, generate one question:
+   - Map the skill to available source material
+   - Use the constraint-based trade-off pattern
+   - Tag with the specific skill: `(Task X.Y)` or `(Domain N)`
+
+4. **Write to** `{GENERATED_DIR}/gap-filling-questions.md`
+
+5. **Re-run gap analysis** automatically and report updated coverage
+
+---
+
+## /quiz-creator scrape <topic|url>
+
+Scrape documentation pages to add source material.
+
+### Workflow
+
+1. **Determine target:**
+   - If URL: scrape directly
+   - If topic name: search for the right documentation page
+   - If domain number: scrape recommended gap-fill docs
+
+2. **Scrape with Firecrawl:**
    ```bash
    firecrawl scrape "<url>" --only-main-content -o .firecrawl/{topic}.md
    ```
 
-3. **Clean the scraped content:**
-   - Remove cookie banners and navigation elements (everything before first `# ` heading)
-   - Remove blocked widget notices at the end
-   - Add YAML frontmatter:
-     ```yaml
-     ---
-     type: scraped-source
-     source_url: "{url}"
-     topic: "{topic description}"
-     scraped: {date}
-     ---
-     ```
-
-4. **Copy to vault Sources/**:
-   - Determine the correct subdirectory (AWS-Gen-AI, AWS-Core, AWS-ML, AWS-Security, etc.)
-   - Copy to `{VAULT_PATH}/Sources/{subdirectory}/{filename}.md`
-
-5. **Update the scraped sources README**:
-   - Append an entry to `{VAULT_PATH}/Sources/scraped-sources-readme.md`
-
-6. **Output:**
+3. **Clean and add frontmatter:**
+   ```yaml
+   ---
+   type: scraped-source
+   source_url: "{url}"
+   topic: "{description}"
+   scraped: {date}
+   ---
    ```
-   Scraped: {topic}
-     URL:  {url}
-     Dest: Sources/{subdirectory}/{filename}.md
-     Size: {lines} lines
 
-   Run /quiz-creator generate to create questions from this source
-   ```
+4. **Copy to source directory** (vault Sources/ or minimal mode folder)
+
+5. **Output** the file path and suggest generating questions
 
 ---
 
 ## /quiz-creator build
 
-Build or rebuild the quiz app from scratch. Creates `quiz_server.py` and `quiz_app.html`.
+Build or rebuild the quiz app with all current features.
 
 ### Workflow
 
-1. **Create project directory** at `{QUIZ_DIR}/` if it doesn't exist.
+1. **Create project directory** at `{QUIZ_DIR}/`
 
 2. **Generate `quiz_server.py`** — Python stdlib HTTP server that:
-   - Parses single-question files (BenchPrep practice/bonus format)
-   - Parses multi-question generated files (split on `## Question N`)
-   - Extracts domain metadata from frontmatter
-   - Serves HTML and JSON API endpoints:
-     - `GET /` — serve quiz_app.html
-     - `GET /api/questions` — all parsed questions as JSON
-     - `GET /api/progress` — read progress.json
-     - `POST /api/progress` — write progress.json
+   - Parses all markdown question files (single-question and multi-question formats)
+   - Extracts domain from `(Domain N)` in titles or frontmatter
+   - Extracts task from `(Task X.Y)` in titles or keyword classification
+   - Auto-classifies untagged questions by keyword matching
+   - Interleaves questions by task within each domain (round-robin for balanced sets)
+   - Serves HTML and JSON API endpoints
+   - Deduplicates questions by content hash
    - Auto-opens browser on startup
 
 3. **Generate `quiz_app.html`** — Self-contained UI with:
-   - **Start screen**: Domain mode buttons (D1-D5), plus All/BenchPrep/Generated/Missed/Random/Shuffle
-   - **Quiz screen**: Question display with radio/checkbox options, domain-grouped sidebar with expandable sections
-   - **Results screen**: Overall score, per-domain breakdown with progress bars, missed question review
-   - **Features**: Keyboard shortcuts (1-5, Enter, arrows, F), flag/bookmark, progress persistence
+   - **Start screen** with three sections:
+     - **By Domain**: Sets of 15-20 questions per domain, task-balanced
+     - **By Topic**: Drill-down by topic (RAG, Agents, Guardrails, etc.)
+     - **Other Modes**: All, BenchPrep, Generated, Missed, Random 10, Shuffled
+   - **Quiz screen**: Question display with randomized A-D order, domain-grouped sidebar
+   - **Results screen**: Score, attempt history, per-domain breakdown, retry button
+   - **Answer shuffling**: Options randomized each session, reshuffled on retry
+   - **3-attempt retry**: Missed questions re-presented with new answer order, tracks improvement
+   - **Keyboard shortcuts**: 1-5 select, Enter check/next, arrows navigate, F flag
+   - **Progress persistence**: JSON file, resume across sessions
 
-4. **Test:**
-   ```bash
-   cd {QUIZ_DIR} && python quiz_server.py
-   ```
+4. **Test:** `cd {QUIZ_DIR} && python quiz_server.py`
 
 ---
 
@@ -221,43 +312,31 @@ Show current state of the quiz system.
 
 ### Workflow
 
-1. **Count questions** by source:
-   - BenchPrep practice questions (from Practice-Questions/)
-   - BenchPrep bonus questions (from Bonus-Questions/)
-   - Generated questions per domain (from Generated-Questions/)
+1. **Count questions** by domain, task, topic, and source file
+2. **Show coverage** from the coverage map
+3. **Report domain distribution** with set breakdowns
 
-2. **Show source material coverage:**
-   - List source documents per domain
-   - Flag domains with thin coverage
+```
+══════════════════════════════════════
+  Quiz Creator Status: {EXAM_NAME}
+══════════════════════════════════════
+  Questions
+  ────────────────────────────────────
+  Domain 1: 55q [1.1:16, 1.2:9, 1.3:3, 1.4:4, 1.5:20, 1.6:3]
+    Set 1 (19q): all 6 tasks covered
+    Set 2 (18q): 4 tasks covered
+    Set 3 (18q): 2 tasks covered
+  Domain 2: 50q [2.1:17, 2.2:13, 2.3:11, 2.4:7, 2.5:2]
+  ...
+  Total: 202 questions
 
-3. **Output:**
-   ```
-   ══════════════════════════════════════
-     Quiz Creator Status
-   ══════════════════════════════════════
-     Questions
-     ────────────────────────────────────
-     Domain 1 (FM Integration):      10
-     Domain 2 (Implementation):      10
-     Domain 3 (Safety/Security):     10
-     Domain 4 (Optimization):        10
-     Domain 5 (Testing):             10
-     BenchPrep Practice:             14
-     BenchPrep Bonus:                 2
-     ────────────────────────────────────
-     Total:                          66
+  Coverage: 83/89 skills (93%)
+  Topics:  11 topic groups
 
-     Source Coverage
-     ────────────────────────────────────
-     AWS-Gen-AI:    10 files
-     AWS-Core:       2 files
-     Exam-Prep:      1 file + 6 Skill Builder
-     ────────────────────────────────────
-
-     Quiz App: {QUIZ_DIR}/quiz_server.py
-     Progress: {exists/none}
-   ══════════════════════════════════════
-   ```
+  Quiz App: {QUIZ_DIR}/quiz_server.py
+  Progress: exists (3 sessions recorded)
+══════════════════════════════════════
+```
 
 ---
 
@@ -267,50 +346,63 @@ Stop any existing quiz server and launch a fresh one.
 
 ### Workflow
 
-1. Kill any existing process on port 8765:
-   ```bash
-   for pid in $(netstat -ano | grep "8765.*LISTENING" | awk '{print $5}' | sort -u); do
-       taskkill //PID $pid //F 2>/dev/null
-   done
-   ```
-
-2. Launch the server:
-   ```bash
-   cd {QUIZ_DIR} && python quiz_server.py
-   ```
-
-3. Report the URL: `http://localhost:8765`
+1. Kill any existing process on port 8765
+2. Launch: `cd {QUIZ_DIR} && python quiz_server.py`
+3. Report URL: `http://localhost:8765`
 
 ---
-
-## Domain Reference
-
-| Domain | Name | Exam Weight |
-|--------|------|-------------|
-| 1 | Foundation Model Integration, Data Management, and Compliance | 31% |
-| 2 | Implementation and Integration | 26% |
-| 3 | AI Safety, Security, and Governance | 20% |
-| 4 | Operational Efficiency and Optimization for GenAI Applications | 12% |
-| 5 | Testing, Validation, and Troubleshooting | 11% |
 
 ## Question Format Rules
 
 ### Callout format (must match for parser compatibility)
 
-- Questions use `> [!question] Question — Title (Task X.Y)` callout
-- Options use `> **A.** Option text` format (each on its own `>` line)
-- Answers use `> [!example]- Answer: B` callout (dash after `]` is required)
-- Multi-select answers: `> [!example]- Answer: B, D`
-- Explanations use `> **A. Correct/Incorrect.** Explanation text` format
+```markdown
+> [!question] Question — Title (Domain N)
+> Scenario text...
+>
+> **A.** Option text
+> **B.** Option text
+> **C.** Option text
+> **D.** Option text
+
+> [!example]- Answer: B
+> **A. Incorrect.** Explanation...
+> **B. Correct.** Explanation...
+> **C. Incorrect.** Explanation...
+> **D. Incorrect.** Explanation...
+```
+
+### Tagging
+
+- `(Domain N)` — required in every question title for domain classification
+- `(Task X.Y)` — recommended for task-balanced distribution
+- Questions without tags get auto-classified by keyword matching
 
 ### File naming
 
-- Generated files: `domain-{N}-generated.md` in `Generated-Questions/`
-- One file per domain, multiple questions per file separated by `## Question N`
+- Domain files: `domain-{N}-generated.md`
+- Category files: `{category}-questions.md`
+- All files in `{GENERATED_DIR}/`, one `## Question N` per question
+
+### Frontmatter
+
+```yaml
+---
+type: generated-questions
+category: category-name
+domain: N (optional — for single-domain files)
+question_count: N
+sources:
+  - "[[Sources/path/to/source]]"
+generated: YYYY-MM-DD
+---
+```
+
+---
 
 ## Question JSON Structure
 
-The parser produces this structure per question:
+The parser produces this per question:
 
 ```json
 {
@@ -326,18 +418,53 @@ The parser produces this structure per question:
   "explanations": {"A": {"correct": false, "text": "..."}},
   "set": "generated",
   "domain": 1,
-  "domain_name": "Foundation Model Integration, Data Management, and Compliance"
+  "domain_name": "Domain Name",
+  "task": "1.2"
 }
 ```
+
+---
+
+## Quiz App Features Summary
+
+| Feature | Description |
+|---------|-------------|
+| Domain sets | 15-20 questions per set, ~30 min sessions |
+| Task-balanced | Round-robin interleaving across tasks within each domain |
+| Topic drill-down | Focus on RAG, Agents, Guardrails, Cost, etc. |
+| Answer shuffle | A-D positions randomized each session |
+| 3-attempt retry | Missed questions re-presented with reshuffled answers |
+| Attempt history | Track improvement across retries |
+| Multiple modes | Domain, topic, all, missed, random, shuffle, source-filtered |
+| Domain sidebar | Expandable sections with per-domain scores |
+| Keyboard shortcuts | 1-5 select, Enter check/next, arrows, F flag |
+| Progress tracking | JSON persistence across sessions |
+| Zero dependencies | Python stdlib only |
+
+---
+
+## Coverage Tracking
+
+The coverage map at `{GENERATED_DIR}/_coverage-map.md` is the source of truth for exam coverage. It gets updated by:
+
+- `/quiz-creator setup` — creates the map with all skills as GAP
+- `/quiz-creator generate` — marks skills as COVERED when questions are generated
+- `/quiz-creator gap-analysis` — re-scans all questions and updates the map
+- `/quiz-creator gap-fill` — closes gaps and updates the map
+
+**Target: 90%+ skill coverage before the question bank is considered complete.**
+
+---
 
 ## Related Skills
 
 | Skill | Relationship |
 |---|---|
-| `/aws-vault` | Manages the vault where source docs and generated questions live |
-| `/firecrawl` | Scrapes AWS documentation for source material |
-| `/web-research` | Research topics online before generating questions |
+| `/aws-vault` | Manages the Obsidian vault where sources and questions live |
+| `/firecrawl` | Scrapes documentation pages for source material |
 | `/notebooklm` | Analyze source docs to identify testable concepts per domain |
+| `/web-research` | Research topics online before generating questions |
+| `/yt-research` | Find video content and transcripts for additional source material |
 | `/guided-learning` | Teach concepts that quiz results reveal as weak areas |
 
 ## Git Workflow
@@ -346,12 +473,15 @@ After any changes, remind the user:
 
 ```
 Commit quiz app changes:
-  cd C:/Users/samue/repos/aip-c01-quiz
+  cd {QUIZ_DIR}
   git add -A && git commit -m "description"
+```
 
-Commit vault changes (generated questions, scraped sources):
-  git --git-dir=C:/Users/samue/repos/aws_learn_vault.git --work-tree=C:/Users/samue/OneDrive/Obsidian/aws_learn_vault add -A
-  git --git-dir=C:/Users/samue/repos/aws_learn_vault.git --work-tree=C:/Users/samue/OneDrive/Obsidian/aws_learn_vault commit -m "description"
+If using an Obsidian vault with a bare repo:
+```
+Commit vault changes:
+  git --git-dir={GIT_DIR} --work-tree={VAULT_PATH} add -A
+  git --git-dir={GIT_DIR} --work-tree={VAULT_PATH} commit -m "description"
 ```
 
 Do NOT auto-commit. The user decides when to snapshot.
